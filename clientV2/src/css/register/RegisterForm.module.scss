@@ -1,0 +1,56 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.RegisterForm {
+	width: 100%;
+	height: auto;
+	display: block;
+	padding: 2rem 4rem;
+	padding-bottom: 6rem;
+	border-radius: 1rem;
+	&_title {
+		margin: 2rem 0;
+		font-size: 2rem;
+		font-weight: 700;
+		color: var(--blueGrey500);
+	}
+	&_field {
+		margin: 2rem 0;
+
+		&_inner {
+			@include fill_container;
+			@include flex_row(space-between, center);
+		}
+		&_signup {
+			width: 100%;
+			@include flex_row(center, center);
+			font-size: 1.3rem;
+			color: var(--accent);
+			& > div {
+				margin-right: 0.3rem;
+				font-size: 1.3rem;
+			}
+		}
+	}
+}
+
+.ForgotPassword {
+	font-size: 1.3rem;
+	color: var(--accent);
+}
+.Signup {
+	font-size: 1.3rem;
+	color: var(--accent);
+}
+.SignupErrors {
+	font-size: 1.2rem;
+	font-weight: 400;
+	color: var(--red1200);
+}
+
+@media only screen and (max-width: 750px) {
+	.RegisterForm {
+		padding: 2rem 2rem;
+	}
+}

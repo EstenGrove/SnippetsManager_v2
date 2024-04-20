@@ -1,0 +1,26 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.UserBadge {
+	width: 4rem;
+	height: 4rem;
+	min-width: 4rem;
+	min-height: 4rem;
+	max-width: 4rem;
+	max-height: 4rem;
+	border-radius: 50%;
+	background-color: var(--blueGrey900);
+	box-shadow: var(--shadow-subtle);
+
+	&_inner {
+		@include fill_container;
+		@include flex_row(center, center);
+
+		&_initials {
+			font-size: 1.7rem;
+			font-weight: 500;
+			color: #ffffff;
+		}
+	}
+}

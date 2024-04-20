@@ -1,0 +1,289 @@
+:root {
+	/* Misc Settings */
+	/* color-scheme: light dark; */
+	/* Font Variables */
+	font-family: Raleway, Roboto, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	--font-primary: Raleway, Roboto, sans-serif;
+	--font-secondary: Open Sans, Roboto, sans-serif;
+	--font-logo: Rubik Glitch, system-ui;
+
+	/* FONT-SIZES & SCALES */
+	--font-scale: 1;
+	--font-base: 1rem;
+	--font-size-1: 1.2rem;
+	--font-size-2: 1.4rem;
+	--font-size-3: 1.6rem;
+	--font-size-4: 1.8rem;
+	--font-size-5: 2rem;
+	--font-size-6: 2.2rem;
+	--font-size-7: 2.4rem;
+	--font-size-8: 2.6rem;
+	--font-size-9: 2.8rem;
+	--font-size-10: 3rem;
+	--font-size-11: 3.2rem;
+	--font-size-12: 3.4rem;
+	--font-size-13: 3.6rem;
+	--font-size-14: 3.8rem;
+	--font-size-15: 4rem;
+
+	/* PRIMARY PALETTE */
+
+	/* Theme/Color Variables */
+	/* #eaecef */
+	--bg-main: rgb(234, 236, 239);
+	--purple-accent: rgb(124, 58, 237);
+	--green-accent: rgb(0, 226, 189);
+	--red-accent: rgb(239, 68, 68);
+
+	/* Grey Tints */
+	--greyTintMain: #64748b;
+	--greyTint800: #728196;
+	--greyTint700: #818ea1;
+	--greyTint600: #909cad;
+	--greyTint500: #9fa9b8;
+	--greyTint400: #afb7c4;
+	--greyTint300: #bec5cf;
+	--greyTint200: #ced3db;
+	--greyTint100: #dee2e7;
+	--greyTint50: #eef0f3;
+
+	--grey100: rgb(255, 255, 255);
+	--grey200: rgb(231, 231, 232);
+	--grey300: rgb(207, 207, 208);
+	--grey400: rgb(182, 184, 185);
+	--grey500: rgb(158, 160, 161);
+	--grey600: rgb(134, 136, 138);
+	--grey700: rgb(110, 112, 115);
+	--grey800: rgb(86, 88, 91);
+	--grey900: rgb(61, 65, 68);
+	--grey1000: rgb(37, 41, 44);
+	--grey1100: rgb(13, 17, 21);
+	--grey1200: rgb(12, 15, 19);
+	--grey1300: rgb(10, 14, 17);
+	--grey1400: rgb(9, 12, 15);
+	--grey1500: rgb(8, 10, 13);
+	--grey1600: rgb(7, 9, 11);
+	--grey1700: rgb(5, 7, 8);
+	--grey1800: rgb(4, 5, 6);
+	--grey1900: rgb(3, 3, 4);
+	--grey2000: rgb(1, 2, 2);
+	--grey2100: rgb(0, 0, 0);
+
+	--bg100: rgb(255, 255, 255);
+	--bg200: rgb(230, 230, 231);
+	--bg300: rgb(205, 206, 206);
+	--bg400: rgb(181, 181, 182);
+	--bg500: rgb(156, 157, 157);
+	--bg600: rgb(131, 132, 133);
+	--bg700: rgb(106, 107, 109);
+	--bg800: rgb(81, 83, 84);
+	--bg900: rgb(57, 58, 60);
+	--bg1000: rgb(32, 34, 35);
+	--bg1100: rgb(7, 9, 11);
+	--bg1200: rgb(6, 8, 10);
+	--bg1300: rgb(6, 7, 9);
+	--bg1400: rgb(5, 6, 8);
+	--bg1500: rgb(4, 5, 7);
+	--bg1600: rgb(4, 5, 6);
+	--bg1700: rgb(3, 4, 4);
+	--bg1800: rgb(2, 3, 3);
+	--bg1900: rgb(1, 2, 2);
+	--bg2000: rgb(1, 1, 1);
+	--bg2100: rgb(0, 0, 0);
+
+	/* Red Shades */
+	--red100: rgb(255, 255, 255);
+	--red200: rgb(253, 236, 236);
+	--red300: rgb(252, 218, 218);
+	--red400: rgb(250, 199, 199);
+	--red500: rgb(249, 180, 180);
+	--red600: rgb(247, 162, 162);
+	--red700: rgb(245, 143, 143);
+	--red800: rgb(244, 124, 124);
+	--red900: rgb(242, 105, 105);
+	--red1000: rgb(241, 87, 87);
+	--red1100: rgb(239, 68, 68);
+	--red1200: rgb(215, 61, 61);
+	--red1300: rgb(191, 54, 54);
+	--red1400: rgb(167, 48, 48);
+	--red1500: rgb(143, 41, 41);
+	--red1600: rgb(120, 34, 34);
+	--red1700: rgb(96, 27, 27);
+	--red1800: rgb(72, 20, 20);
+	--red1900: rgb(48, 14, 14);
+	--red2000: rgb(24, 7, 7);
+	--red2100: rgb(0, 0, 0);
+
+	/* YELLOW */
+	--yellow50: rgb(255, 251, 235);
+	--yellow100: rgb(254, 243, 199);
+	--yellow200: rgb(253, 230, 138);
+	--yellow300: rgb(252, 211, 77);
+	--yellow400: rgb(251, 191, 36);
+	--yellow500: rgb(245, 158, 11);
+	--yellow600: rgb(217, 119, 6);
+	--yellow700: rgb(180, 83, 9);
+	--yellow800: rgb(146, 64, 14);
+	--yellow900: rgb(120, 53, 15);
+
+	/* ORANGE */
+	--orange50: rgb(255, 247, 237);
+	--orange100: rgb(255, 237, 213);
+	--orange200: rgb(254, 215, 170);
+	--orange300: rgb(253, 186, 116);
+	--orange400: rgb(251, 146, 60);
+	--orange500: rgb(249, 115, 22);
+	--orange600: rgb(234, 88, 12);
+	--orange700: rgb(194, 65, 12);
+	--orange800: rgb(154, 52, 18);
+	--orange900: rgb(124, 45, 18);
+
+	/* Purple Shades (accent: 1000|1100) */
+
+	--purple100: rgb(255, 255, 255);
+	--purple200: rgb(240, 232, 255);
+	--purple300: rgb(225, 209, 255);
+	--purple400: rgb(210, 186, 255);
+	--purple500: rgb(195, 163, 255);
+	--purple600: rgb(180, 140, 255);
+	--purple700: rgb(165, 117, 255);
+	--purple800: rgb(150, 94, 255);
+	--purple900: rgb(135, 71, 255);
+	--purple1000: rgb(120, 48, 255);
+	--purple1100: rgb(105, 25, 255);
+	--purple1200: rgb(95, 23, 230);
+	--purple1300: rgb(84, 20, 204);
+	--purple1400: rgb(74, 18, 179);
+	--purple1500: rgb(63, 15, 153);
+	--purple1600: rgb(53, 13, 128);
+	--purple1700: rgb(42, 10, 102);
+	--purple1800: rgb(32, 8, 77);
+	--purple1900: rgb(21, 5, 51);
+	--purple2000: rgb(10, 2, 25);
+	--purple2100: rgb(0, 0, 0);
+
+	/* Purple Background Accent(s) */
+	--purpleBG100: rgb(255, 255, 255);
+	--purpleBG200: rgba(253, 252, 255, 0.92);
+	--purpleBG300: rgba(251, 249, 255, 0.84);
+	--purpleBG400: rgba(248, 245, 255, 0.76);
+	--purpleBG500: rgba(245, 239, 255, 0.68);
+	--purpleBG600: rgba(240, 232, 255, 0.6);
+	--purpleBG700: rgba(234, 222, 255, 0.52);
+	--purpleBG800: rgba(224, 208, 255, 0.44);
+	--purpleBG900: rgba(209, 184, 255, 0.36);
+	--purpleBG1000: rgba(180, 140, 255, 0.28);
+	--purpleBG1100: rgba(105, 25, 255, 0.2);
+	--purpleBG1200: rgba(53, 13, 128, 0.28);
+	--purpleBG1300: rgba(32, 8, 78, 0.36);
+	--purpleBG1400: rgba(22, 5, 52, 0.44);
+	--purpleBG1500: rgba(15, 4, 36, 0.52);
+	--purpleBG1600: rgba(10, 2, 25, 0.6);
+	--purpleBG1700: rgba(7, 2, 18, 0.68);
+	--purpleBG1800: rgba(5, 1, 12, 0.76);
+	--purpleBG1900: rgba(3, 1, 7, 0.84);
+	--purpleBG2000: rgba(1, 0, 3, 0.92);
+	--purpleBG2100: rgb(0, 0, 0);
+
+	/* BLUE-GREY SHADES */
+	--blueGrey50: rgb(248, 250, 252);
+	--blueGrey100: rgb(241, 245, 249);
+	--blueGrey200: rgb(226, 232, 240);
+	--blueGrey300: rgb(203, 213, 225);
+	--blueGrey400: rgb(148, 163, 184);
+	--blueGrey500: rgb(100, 116, 139);
+	--blueGrey600: rgb(71, 85, 105);
+	--blueGrey700: rgb(51, 65, 85);
+	--blueGrey800: rgb(30, 41, 59);
+	--blueGrey900: rgb(15, 23, 42);
+
+	/* LAYOUT */
+	--page-padding: 5%;
+	--accent: rgb(105 25 255);
+	--accent-bg: rgba(105, 25, 255, 0.2);
+	--bg-focus: var(--greyTint900);
+
+	/* TEXT COLORS */
+	--text-main: var(--blueGrey900);
+
+	/* SHADOWS & OUTLINES */
+	--main-outline: 0 0 0 2px var(--accent-bg);
+	--red-outline: 0 0 0 2px var(--red600);
+	--shadow-light: 0px 1px 7px -1px rgba(0, 0, 0, 0.25);
+	--shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+	/* BORDERS */
+	--border: var(--blueGrey600);
+	/* ICONS */
+	--icon-color: var(--blueGrey500);
+	--bg: #fff;
+
+	/* ACCENTS */
+	--accent-red: var(--red-accent);
+	--accent-orange: var(--orange600);
+	--accent-yellow: var(--yellow500);
+}
+
+:root[data-theme="light"] {
+	--bg-main: #eaecef;
+	--bg-foreground: var(--greyTint100);
+	--bg-focus: var(--greyTint300);
+	--bg: #fff;
+	--bg-main-panel: var(--grey200);
+	--bg-medium: var(--bg-main);
+	/* TEXT COLORS */
+	--text-main: var(--blueGrey800);
+	--text-input: var(--blueGrey800);
+	/* BORDERS */
+	--border: var(--blueGrey300);
+	/* ICON COLORS/FILLS */
+	--icon-color: var(--blueGrey500);
+	/* ACCENTS */
+	--accent-red: var(--red1200);
+}
+
+:root[data-theme="dark"] {
+	--bg-main: #07090b;
+	--bg-foreground: #0c0f13;
+	--bg-focus: rgb(19, 22, 26);
+	--bg: rgb(19, 22, 26);
+	--bg-main-panel: var(--bg1200);
+	--bg-medium: var(--grey1200);
+	/* --bg-main-panel: var(--bg1200); */
+	/* --bg-main-panel: rgba(8, 8, 8, 0.432); */
+	/* --bg-main-panel: rgba(12, 15, 19, 0.671); */
+	/* TEXT COLORS */
+	--text-main: var(--blueGrey300);
+	--text-input: var(--blueGrey100);
+	/* BORDERS */
+	--border: var(--blueGrey900);
+	/* ICON COLORS/FILLS */
+	--icon-color: var(--blueGrey500);
+	/* ACCENTS */
+	--accent-red: var(--red1200);
+}
+
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+html {
+	font-size: 62.5%;
+}
+body {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: "Raleway", "Roboto", sans-serif;
+	background-color: var(--bg-main);
+}

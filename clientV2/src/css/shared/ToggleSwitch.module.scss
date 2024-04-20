@@ -1,0 +1,54 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.ToggleSwitch {
+	position: relative;
+	width: 5rem;
+	height: 1.8rem;
+	border-radius: 5rem;
+
+	&_input {
+		visibility: hidden;
+	}
+	&_label {
+		display: block;
+		background-color: #eaecef;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 5rem;
+		transition: all 0.3s ease-in-out;
+		outline: 1px solid #ccc;
+
+		&:hover,
+		&:focus {
+			box-shadow: var(--main-outline);
+			cursor: pointer;
+		}
+
+		&_dot {
+			position: absolute;
+			display: block;
+			top: 0;
+			right: 0;
+			width: 1.8rem;
+			height: 1.8rem;
+			border-radius: 50%;
+			background-color: #fff;
+			box-shadow: var(--shadow-subtle);
+			transition: all 0.3s ease-in-out;
+		}
+	}
+	// ON state 'label' wrapper
+	&_input:checked ~ &_label {
+		background-color: var(--accent);
+	}
+	// ON state 'dot'
+	&_input:checked ~ &_label > div[data-dot="true"] {
+		right: 66%;
+		transition: right 0.3s ease-in-out;
+	}
+}

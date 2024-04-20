@@ -1,0 +1,13 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.DashboardPage {
+	@include fill_container;
+	@include flex_row(flex-start, flex-start);
+
+	&_routes {
+		@include fill_container;
+		// padding: 4rem 2rem;
+	}
+}

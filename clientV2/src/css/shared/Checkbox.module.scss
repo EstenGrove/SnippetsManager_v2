@@ -1,0 +1,48 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.Checkbox {
+	width: auto;
+	@include flex_row(flex-start, center);
+
+	&_input {
+		width: 1.5rem;
+		height: 1.5rem;
+		background-color: var(--accent);
+		border-radius: 0.5rem;
+		border: 1px solid #ccc;
+		outline: none;
+		&:hover {
+			cursor: pointer;
+		}
+
+		&:checked {
+			accent-color: var(--accent);
+		}
+	}
+	&_label {
+		font-size: 1.4rem;
+		margin-left: 0.5rem;
+		margin-top: 0.1rem;
+		color: var(--text-main);
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.Checkbox {
+		width: auto;
+
+		&_input {
+			width: 1.3rem;
+			height: 1.3rem;
+		}
+
+		&_label {
+			font-size: 1.2rem;
+		}
+	}
+}

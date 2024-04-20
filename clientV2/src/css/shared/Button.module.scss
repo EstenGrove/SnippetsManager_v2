@@ -1,0 +1,22 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.Button {
+	padding: 0.5rem 1.5rem;
+	border-radius: 0.5rem;
+	background-color: var(--accent);
+	color: #ffffff;
+	border: none;
+	outline: none;
+	font-size: 1.6rem;
+	font-weight: 600;
+	&:hover {
+		cursor: pointer;
+		box-shadow: var(--main-outline);
+	}
+	&:disabled {
+		opacity: 0.4;
+		cursor: not-allowed;
+	}
+}

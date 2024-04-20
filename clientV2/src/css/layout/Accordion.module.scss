@@ -1,0 +1,15 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.Accordion {
+	width: 100%;
+	height: auto;
+	border-radius: 0.5rem;
+	border: 1px solid #ccc;
+
+	&_inner {
+		width: 100%;
+		height: auto;
+	}
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite + React + TS</title>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="module" src="/src/main.tsx"></script>
+		<script>
+			const ENABLE_THEME = true;
+			//const ENABLE_THEME = false;
+			// Check Theme Preference //
+			const darkQuery = `(prefers-color-scheme: dark)`;
+			const lightQuery = `(prefers-color-scheme: light)`;
+			const prefersDark = window.matchMedia(darkQuery).matches;
+			if (ENABLE_THEME && prefersDark) {
+				document.documentElement.dataset.theme = "dark";
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,11 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.Dashboard {
+	@include fill_container;
+}
+
+h1 {
+	color: var(--text-main);
+}

@@ -1,0 +1,98 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+////////////////////////////////////////////////
+//////////////// DESKTOP VERSION ///////////////
+////////////////////////////////////////////////
+
+.ListsPanel {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 25rem;
+	min-width: 25rem;
+	max-width: 25rem;
+	height: 100vh;
+	max-height: 100%;
+	background-color: var(--bg-main-panel);
+	transition: all 0.5s ease-in-out;
+}
+
+.PanelToggle {
+	position: absolute;
+	top: 2rem;
+	right: -1rem;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	background-color: var(--accent-bg);
+	border: none;
+	outline: none;
+	box-shadow: var(--shadow-subtle);
+	z-index: 10;
+	&:hover {
+		cursor: pointer;
+		background-color: var(--accent-bg);
+	}
+
+	&_icon {
+		width: 2rem;
+		height: 2rem;
+		fill: var(--icon-color);
+	}
+}
+
+.ListsPanel[data-collapsed="true"] {
+	width: 3rem;
+	min-width: 3rem;
+	max-width: 3rem;
+	transition: all 0.5s ease-in-out;
+}
+
+////////////////////////////////////////////////
+//////////////// MOBILE VERSION ////////////////
+////////////////////////////////////////////////
+
+.MobileListsPanel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20rem;
+	min-width: 20rem;
+	height: calc(100vh - 5rem);
+	background-color: var(--bg-main-panel);
+	transition: all 0.5s ease-in-out;
+}
+
+.MobilePanelToggle {
+	position: absolute;
+	top: 2rem;
+	left: 1rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	background-color: var(--accent-bg);
+	border: none;
+	outline: none;
+	box-shadow: var(--shadow-subtle);
+	@include flex_row(center, center);
+	z-index: 10;
+	&:hover {
+		cursor: pointer;
+		background-color: var(--accent-bg);
+	}
+
+	&_icon {
+		width: 2rem;
+		height: 2rem;
+		fill: #000;
+	}
+}
+
+.MobileListsPanel[data-mobilecollapsed="true"] {
+	width: 0;
+	min-width: 0;
+	max-width: 0;
+	transition: all 0.5s ease-in-out;
+}

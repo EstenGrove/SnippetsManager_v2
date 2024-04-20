@@ -1,0 +1,27 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.AccordionContent {
+	width: 100%;
+	padding: 2rem;
+	background-color: var(--bg-foreground);
+	color: var(--text-main);
+	border-radius: 0.5rem;
+	// other
+	display: none;
+	height: 0;
+	will-change: height;
+	transition: height 358ms ease-in-out 0s;
+
+	&[aria-expanded="false"] {
+		height: 0;
+		transition: height 1s ease-in-out;
+	}
+	&[aria-expanded="true"] {
+		height: auto;
+		overflow: visible;
+		display: block;
+		transition: height 1s ease-in-out;
+	}
+}

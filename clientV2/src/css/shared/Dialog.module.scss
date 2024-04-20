@@ -1,0 +1,123 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.Dialog {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 50rem;
+	max-width: 50%;
+	height: auto;
+	min-height: 25rem;
+	max-height: 40rem;
+	transform: translate(-50%, -50%);
+	@include flex_col(flex-start, flex-start);
+	border-radius: 1rem;
+	background-color: var(--bg);
+	box-shadow: 3px 7px 1045px 1439px rgba(0, 0, 0, 0.81);
+	color: var(--text-main);
+
+	&_top {
+		width: 100%;
+		height: auto;
+		max-height: 3rem;
+		border-radius: 1rem 1rem 0 0;
+		padding: 1rem 1rem;
+		@include flex_row(flex-end, center);
+
+		&_close {
+			width: 2rem;
+			height: 2rem;
+			fill: var(--accent-red);
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+
+	&_header {
+		width: 100%;
+		min-height: 20%;
+		height: 20%;
+		max-height: 20%;
+		padding: 0 2rem;
+		@include flex_row(flex-start, flex-start);
+
+		&_iconWrapper {
+			width: 5rem;
+			height: 5rem;
+			border-radius: 50%;
+			// border: 1px solid #ccc;
+			background-color: var(--red300);
+			@include flex_row(center, center);
+			margin-right: 2rem;
+
+			&_icon {
+				width: 70%;
+				min-width: 70%;
+				min-height: 70%;
+				height: 70%;
+				@include flex_row(center, center);
+				fill: var(--accent-red);
+				// width: 8rem;
+				// height: 8rem;
+			}
+		}
+		&_title {
+			font-size: 2rem;
+			font-weight: 600;
+			color: var(--text-main);
+			align-self: center;
+		}
+	}
+
+	&_content {
+		width: 100%;
+		height: auto;
+		text-align: left;
+		padding: 1rem 0;
+		padding-right: 1rem;
+		padding-left: 9rem;
+		font-size: 1.5rem;
+	}
+
+	&_footer {
+		width: 100%;
+		height: 5rem;
+		padding: 0.5rem 1rem;
+		margin-top: auto;
+		@include flex_row(flex-end, center);
+		gap: 0 1rem;
+		// background-color: var(--bg-main-panel);
+		// background-color: var(--grey1200);
+		background-color: var(--bg-medium);
+		border-radius: 0 0 1rem 1rem;
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.Dialog {
+		position: fixed;
+		top: 100%;
+		left: 50%;
+		transform: translate(-50%, -100%);
+		width: 98vw;
+		min-width: 98vw;
+		box-shadow: 3px -70px 245px 439px rgba(0, 0, 0, 0.81);
+
+		&_header {
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+		&_content {
+			width: 100%;
+			padding-left: 8rem;
+			padding-right: 1rem;
+		}
+
+		&_footer {
+			height: 5rem;
+		}
+	}
+}
