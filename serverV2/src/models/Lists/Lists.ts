@@ -11,10 +11,10 @@ export interface IDBListRecord {
 	is_active: boolean;
 }
 export interface IServerListRecord {
-	ListID: IDBUserListRecord["list_id"];
-	Name: IDBUserListRecord["list_name"];
-	Desc: IDBUserListRecord["list_desc"];
-	IsPinned: IDBUserListRecord["is_pinned"];
+	ListID: IDBListRecord["list_id"];
+	Name: IDBListRecord["list_name"];
+	Desc: IDBListRecord["list_desc"];
+	IsPinned: IDBListRecord["is_pinned"];
 	CreatedDate: IDBListRecord["created_date"];
 	UpdatedDate: IDBListRecord["updated_date"];
 	CreatedBy: IDBListRecord["created_by"];
@@ -24,9 +24,10 @@ export interface IServerListRecord {
 
 // USER LISTS
 export interface IDBUserListRecord {
+	user_list_id: string;
+	user_id: string;
 	list_id: string;
 	list_name: string;
-	list_desc: string;
 	is_pinned: boolean;
 	created_date: string;
 	updated_date: string | null;
@@ -36,8 +37,9 @@ export interface IDBUserListRecord {
 }
 export interface IServerUserListRecord {
 	ListID: IDBUserListRecord["list_id"];
+	UserListID: IDBUserListRecord["user_list_id"];
+	UserID: IDBUserListRecord["user_id"];
 	Name: IDBUserListRecord["list_name"];
-	Desc: IDBUserListRecord["list_desc"];
 	IsPinned: IDBUserListRecord["is_pinned"];
 	CreatedDate: IDBUserListRecord["created_date"];
 	UpdatedDate: IDBUserListRecord["updated_date"];
