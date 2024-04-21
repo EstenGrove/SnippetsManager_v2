@@ -1,0 +1,48 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.PanelSearch {
+	width: 100%;
+	height: auto;
+	padding: 0 1rem;
+
+	&_inputWrapper {
+		width: 100%;
+		@include flex_row(flex-start, center);
+		border-radius: 1rem;
+		border: 1px solid var(--border);
+		&:hover {
+			cursor: pointer;
+			box-shadow: var(--main-outline);
+		}
+
+		&:focus-within {
+			cursor: pointer;
+			box-shadow: var(--main-outline);
+		}
+		&_icon {
+			width: 2rem;
+			height: 2rem;
+			min-width: 2rem;
+			min-height: 2rem;
+			fill: var(--icon-color);
+			padding-left: 0.5rem;
+		}
+
+		&_input {
+			width: 95%;
+			height: 3rem;
+			border-radius: 1rem;
+			font-size: 1.6rem;
+			border: none;
+			outline: none;
+			padding-left: 0.5rem;
+			background-color: transparent;
+			color: var(--text-input);
+			&::placeholder {
+				color: var(--text-input);
+			}
+		}
+	}
+}

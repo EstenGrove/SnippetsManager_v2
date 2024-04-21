@@ -6,6 +6,7 @@ import {
 	logoutUser,
 } from "../../controllers/auth/authController";
 import { getUserLists } from "../../controllers/lists/listsController";
+import { getUserTags } from "../../controllers/tags/tagsController";
 
 const app = express();
 
@@ -18,7 +19,8 @@ app.use("/Logout", logoutUser);
 app.use("/Register", registerUser);
 app.use("/CheckAuth", checkAuth);
 
-// Lists/UserLists
+// Lists, Tags
+app.use("/GetUserTags", getUserTags);
 app.use("/GetUserLists", getUserLists);
 
 // Export the app w/ routes

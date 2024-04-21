@@ -23,6 +23,7 @@ import LogoutButton from "../components/login/LogoutButton";
 import { fetchUserLists } from "../features/lists/operations";
 import { TUserThunkArgs } from "../features/types";
 import { useAppDispatch } from "../store/store";
+import { fetchUserTags } from "../features/tags/operations";
 
 const DashboardPage = () => {
 	const dispatch = useAppDispatch();
@@ -56,6 +57,7 @@ const DashboardPage = () => {
 		}
 	};
 
+	// fetch: user lists, tags, etc
 	const getInitialResources = () => {
 		const { token } = currentAuth;
 		const { userID } = currentUser;
@@ -63,19 +65,19 @@ const DashboardPage = () => {
 		// lists
 		// tags
 		dispatch(fetchUserLists(args));
+		dispatch(fetchUserTags(args));
 	};
 
 	useEffect(() => {
 		let isMounted = true;
 		if (!isMounted) return;
 
-		// fetch lists
-		// fetch tags
 		getInitialResources();
 
 		return () => {
 			isMounted = false;
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

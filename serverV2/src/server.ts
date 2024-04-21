@@ -23,7 +23,13 @@ const getter = async () => {
 	console.log("result", result);
 };
 
-// getter();
+// CRUDE ERROR CATCHING
+// ##TODOS:
+// - Fix this later & replace w/ proper error handling
+process.on("uncaughtException", (err) => {
+	console.error(err);
+	console.log("❌ Node app experienced an error, prevent app crashing...");
+});
 
 app.listen(PORT, () => {
 	console.log(

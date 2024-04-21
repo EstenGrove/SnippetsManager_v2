@@ -1,0 +1,13 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.ListsPanelHeading {
+	width: 100%;
+	height: auto;
+	margin-bottom: 2rem;
+}
+
+[data-collapsed="true"] .ListsPanelHeading {
+	opacity: 0;
+}

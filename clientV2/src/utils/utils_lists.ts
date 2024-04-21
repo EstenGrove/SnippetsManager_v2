@@ -1,5 +1,7 @@
+import { IUserList } from "../features/lists/types";
 import { fetchWithAuth } from "./utils_auth";
 import { currentEnv, lists } from "./utils_env";
+import { sortAlphaAscByKey, sortBoolAscByKey } from "./utils_misc";
 import { IResponse } from "./utils_shared";
 
 const getUserLists = async (
@@ -20,4 +22,16 @@ const getUserLists = async (
 	}
 };
 
-export { getUserLists };
+// SORTING
+const sortUserLists = (userLists: IUserList[]) => {
+	const byPinStatus = sortBoolAscByKey("isPinned", userLists);
+	const byName = sortAlphaAscByKey("listName", byPinStatus);
+	return byName;
+};
+
+export {
+	// Requests
+	getUserLists,
+	// List utils
+	sortUserLists,
+};

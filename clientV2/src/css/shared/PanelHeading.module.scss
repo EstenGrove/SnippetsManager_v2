@@ -1,0 +1,40 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.PanelHeading {
+	width: 100%;
+	height: auto;
+	padding: 2rem 2rem;
+	// border-bottom: 1px solid var(--border);
+
+	&_titleWrapper {
+		width: 100%;
+		height: auto;
+		@include flex_row(flex-start, center);
+
+		&_title {
+			height: auto;
+			font-size: 2rem;
+			font-weight: 600;
+			color: var(--text-main);
+			margin-left: 1rem;
+
+			& > span {
+				font-size: 1.6rem;
+				font-weight: 500;
+				font-family: var(--font-alt);
+				color: var(--text-main);
+			}
+		}
+		&_icon {
+			width: 2.5rem;
+			height: 2.5rem;
+			fill: var(--text-main);
+		}
+	}
+}
+
+.ListsPanel[data-collapsed="true"] .PanelHeading {
+	display: none;
+}

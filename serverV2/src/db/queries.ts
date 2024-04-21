@@ -38,7 +38,7 @@ const getAllRowsSorted = async (
 };
 
 const getRowsByID = async (
-	id: string,
+	id: string | number,
 	tableOptions: TTableOptions
 ): Promise<QueryResult["rows"] | unknown> => {
 	// id to query for & tableName to query

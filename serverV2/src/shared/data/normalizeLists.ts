@@ -45,7 +45,7 @@ const normalizeUserListForServer = (dbUserList: IDBUserListRecord) => {
 };
 
 const normalizeUserListsForServer = (dbUserLists: IDBUserListRecord[]) => {
-	if (!dbUserLists) return [];
+	if (!dbUserLists || dbUserLists?.length <= 0) return [];
 	const serverLists = dbUserLists.map((userListRecord) =>
 		normalizeUserListForServer(userListRecord)
 	);

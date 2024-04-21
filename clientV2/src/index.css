@@ -212,6 +212,8 @@
 
 	/* TEXT COLORS */
 	--text-main: var(--blueGrey900);
+	--text-secondary: var(--blueGrey400);
+	--text-input-placeholder: var(--blueGrey600);
 
 	/* SHADOWS & OUTLINES */
 	--main-outline: 0 0 0 2px var(--accent-bg);
@@ -223,6 +225,8 @@
 	--border: var(--blueGrey600);
 	/* ICONS */
 	--icon-color: var(--blueGrey500);
+	--fave-color: var(--orange500);
+	/* BACKGROUNDS/FOREGROUNDS */
 	--bg: #fff;
 
 	/* ACCENTS */
@@ -238,13 +242,17 @@
 	--bg: #fff;
 	--bg-main-panel: var(--grey200);
 	--bg-medium: var(--bg-main);
+	--bg-input: #eaecef;
 	/* TEXT COLORS */
 	--text-main: var(--blueGrey800);
 	--text-input: var(--blueGrey800);
+	--text-input-placeholder: var(--blueGrey400);
+	--text-secondary: var(--blueGrey400);
 	/* BORDERS */
 	--border: var(--blueGrey300);
 	/* ICON COLORS/FILLS */
 	--icon-color: var(--blueGrey500);
+	--fave-color: var(--orange500);
 	/* ACCENTS */
 	--accent-red: var(--red1200);
 }
@@ -256,16 +264,21 @@
 	--bg: rgb(19, 22, 26);
 	--bg-main-panel: var(--bg1200);
 	--bg-medium: var(--grey1200);
+	--bg-input: var(--bg-foreground);
 	/* --bg-main-panel: var(--bg1200); */
 	/* --bg-main-panel: rgba(8, 8, 8, 0.432); */
 	/* --bg-main-panel: rgba(12, 15, 19, 0.671); */
 	/* TEXT COLORS */
 	--text-main: var(--blueGrey300);
 	--text-input: var(--blueGrey100);
+	--text-input-placeholder: var(--blueGrey600);
+	--text-secondary: var(--blueGrey600);
+
 	/* BORDERS */
 	--border: var(--blueGrey900);
 	/* ICON COLORS/FILLS */
 	--icon-color: var(--blueGrey500);
+	--fave-color: var(--orange500);
 	/* ACCENTS */
 	--accent-red: var(--red1200);
 }

@@ -1,8 +1,9 @@
 import express, { Request, Response, NextFunction } from "express";
-import { IQueryRows, getAllListsByUser } from "../../db/lists/listQueries";
+import { getAllListsByUser } from "../../db/lists/listQueries";
 import { normalizeUserListsForServer } from "../../shared/data/normalizeLists";
 import { IServerUserListRecord } from "../../models/Lists/Lists";
 import { ResponseModel } from "../../models/shared/ResponseModel";
+import { IQueryRows } from "../../db/db";
 
 const app = express();
 

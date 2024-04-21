@@ -65,14 +65,13 @@ const LoginPage = () => {
 		const results = await login(username, password);
 
 		// if failed, open dialog box
-		if (results.Status === "FAILED") {
+		if (!results || results.Status !== "SUCCESS") {
 			return setDialog({
 				show: true,
 				title: results?.Data?.Title,
 				msg: results?.Data?.Msg,
 			});
 		} else {
-			console.log("results(SUCCESS):", results);
 			const { Session, User } = results.Data;
 			const userAuth: IUserAuth = {
 				userID: User.UserID,
@@ -107,6 +106,7 @@ const LoginPage = () => {
 	const closeDialog = () => {
 		setUserCredentials({ ...userCredentials, username: "", password: "" });
 		setDialog({ show: false, msg: null, title: null });
+		setIsSubmitting(false);
 	};
 
 	return (
