@@ -22,6 +22,37 @@ export interface IServerListRecord {
 	IsActive: IDBListRecord["is_active"];
 }
 
+/**
+ * 'IList' server-side version
+ */
+export interface IClientListRecord {
+	listID: number;
+	listName: string;
+	listDesc: string | null;
+	isPinned: boolean;
+	createdDate: Date | string;
+	updatedDate: Date | string | null;
+	createdBy: string;
+	updatedBy: string | null;
+	isActive: boolean;
+}
+
+/**
+ * 'IUserList' server-side version
+ */
+export interface IClientUserListRecord {
+	userListID: number;
+	userID: string;
+	listID: number;
+	listName: string;
+	isPinned: boolean;
+	createdDate: Date | string;
+	updatedDate: Date | string | null;
+	createdBy: string;
+	updatedBy: string | null;
+	isActive: boolean;
+}
+
 // USER LISTS
 export interface IDBUserListRecord {
 	user_list_id: string;

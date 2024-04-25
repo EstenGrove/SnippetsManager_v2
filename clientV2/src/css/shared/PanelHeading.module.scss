@@ -19,12 +19,14 @@
 			font-weight: 600;
 			color: var(--text-main);
 			margin-left: 1rem;
+			@include flex_row(flex-start, center);
 
 			& > span {
-				font-size: 1.6rem;
+				font-size: 1.5rem;
 				font-weight: 500;
 				font-family: var(--font-alt);
-				color: var(--text-main);
+				color: var(--text-secondary);
+				margin-left: 0.5rem;
 			}
 		}
 		&_icon {

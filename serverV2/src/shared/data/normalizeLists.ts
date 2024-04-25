@@ -18,9 +18,10 @@ const normalizeListForServer = (dbList: IDBListRecord) => {
 };
 
 const normalizeListsForServer = (dbLists: IDBListRecord[]) => {
-	if (!dbLists) return [];
-	const serverLists = dbLists.map((tagRecord) =>
-		normalizeListForServer(tagRecord)
+	if (!dbLists || typeof dbLists === "object") return [];
+	const lists = dbLists as IDBListRecord[];
+	const serverLists = lists.map((listRecord: IDBListRecord) =>
+		normalizeListForServer(listRecord)
 	);
 
 	return serverLists;
@@ -45,7 +46,8 @@ const normalizeUserListForServer = (dbUserList: IDBUserListRecord) => {
 };
 
 const normalizeUserListsForServer = (dbUserLists: IDBUserListRecord[]) => {
-	if (!dbUserLists || dbUserLists?.length <= 0) return [];
+	if (!dbUserLists || (dbUserLists?.length <= 0 && !Array.isArray(dbUserLists)))
+		return [];
 	const serverLists = dbUserLists.map((userListRecord) =>
 		normalizeUserListForServer(userListRecord)
 	);

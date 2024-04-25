@@ -6,7 +6,7 @@ type Props = {};
 const DashboardTags = ({}: Props) => {
 	return (
 		<div className={styles.DashboardTags}>
-			<h1>Tags</h1>
+			<h2>Tags</h2>
 			{/*  */}
 			{/*  */}
 		</div>

@@ -3,6 +3,7 @@ export interface ICurrentUser {
 	username: string | null;
 	email: string | null;
 	password: string | null;
+	token?: string | null;
 	isAdmin?: boolean;
 	isTeamLead?: boolean;
 	createdDate: Date | string | null;

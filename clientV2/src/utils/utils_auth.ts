@@ -1,5 +1,6 @@
 import { hoursToSecs } from "./utils_dates";
 import { auth, currentEnv } from "./utils_env";
+import { IResponse } from "./utils_shared";
 
 export type TFetchOptions = {
 	method?: "POST" | "GET" | "PUT" | "DELETE";
@@ -81,9 +82,18 @@ const checkAuthSession = async (userID: string, token: string) => {
 		return error;
 	}
 };
-
+//
+export type IAuthResponse = {
+	UserID: string;
+	Status: "SUCCESS" | "FAILED";
+	IsValid: boolean;
+	Token?: string;
+};
 // checks is auth session is valid & returns a refreshed auth token & session details
-const refreshAuthSession = async (userID: string, token: string) => {
+const refreshAuthSession = async (
+	userID: string,
+	token: string
+): Promise<IAuthResponse | unknown> => {
 	let url = currentEnv.base + auth.checkAuth;
 	url += "?" + new URLSearchParams({ userID });
 	try {
@@ -93,7 +103,7 @@ const refreshAuthSession = async (userID: string, token: string) => {
 		const response = await request.json();
 		console.log("CheckAuth(response):", response);
 		return response;
-	} catch (error) {
+	} catch (error: unknown) {
 		console.log("Error(checkauth):", error);
 		return error;
 	}
@@ -158,6 +168,7 @@ const setRememberMe = (authSession: IAuthSession): void => {
 		sessionToken,
 		lastRefreshedAt,
 	} = authSession;
+	console.log("authSession(rememberMe)", authSession);
 
 	const authCache: IAuthSessionCache = {
 		uid: userID as string,
@@ -199,8 +210,8 @@ const getRememberMe = (): IAuthSession => {
 			sessionID: null,
 			sessionStart: null,
 			sessionExpiry: null,
-			sessionLength: null,
 			sessionToken: null,
+			sessionLength: null,
 			lastRefreshedAt: null,
 		};
 	}

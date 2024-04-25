@@ -2,6 +2,10 @@ import React, { useCallback, useEffect } from "react";
 import styles from "../css/pages/DashboardPage.module.scss";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { fetchUserLists } from "../features/lists/operations";
+import { TUserThunkArgs } from "../features/types";
+import { useAppDispatch } from "../store/store";
+import { fetchUserTags } from "../features/tags/operations";
 import { useAuthSession } from "../hooks/useAuthSession";
 import {
 	logoutUser,
@@ -20,20 +24,16 @@ import DashboardFaves from "../components/dashboard/DashboardFaves";
 import DashboardSearch from "../components/dashboard/DashboardSearch";
 import DashboardSettings from "../components/dashboard/DashboardSettings";
 import LogoutButton from "../components/login/LogoutButton";
-import { fetchUserLists } from "../features/lists/operations";
-import { TUserThunkArgs } from "../features/types";
-import { useAppDispatch } from "../store/store";
-import { fetchUserTags } from "../features/tags/operations";
 
 const DashboardPage = () => {
 	const dispatch = useAppDispatch();
 	const currentUser = useSelector(selectCurrentUser);
 	const currentAuth = useSelector(selectCurrentUserAuth);
 	const navigate = useNavigate();
-	const { authSession, sessionStatus } = useAuthSession({
+	const { sessionStatus } = useAuthSession({
 		onSuccess: () => {
 			console.log("SUCCESS!!!");
-			alert("Success!");
+			// alert("Success!");
 		},
 		onReject: () => {
 			console.log("FAILED!!!");

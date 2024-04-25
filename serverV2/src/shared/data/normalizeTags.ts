@@ -17,7 +17,7 @@ const normalizeTagForServer = (dbTag: IDBTagRecord): IServerTagRecord => {
 };
 
 const normalizeTagsForServer = (dbTags: IDBTagRecord[]): IServerTagRecord[] => {
-	if (!dbTags || dbTags.length <= 0) return [];
+	if (!dbTags || (dbTags.length <= 0 && !Array.isArray(dbTags))) return [];
 	const serverTags = dbTags.map((tagRecord) =>
 		normalizeTagForServer(tagRecord)
 	);

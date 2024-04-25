@@ -11,3 +11,7 @@ export type TUserThunkArgs = {
 	token: string;
 	userID: string;
 };
+export interface IUserThunkArgs {
+	token: string;
+	userID: string;
+}

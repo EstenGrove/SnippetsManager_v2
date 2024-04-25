@@ -8,15 +8,15 @@
 	min-height: 4rem;
 	max-height: 4rem;
 	padding: 1rem 1rem;
-	font-family: var(--font-main);
+	font-family: var(--font-primary);
 	@include flex_row(flex-start, center);
 	order: 1;
-	// border-bottom: 1px solid var(--border);
 
 	&:hover {
 		cursor: pointer;
 		color: var(--accent);
-		background-color: var(--blueGrey900);
+		// background-color: var(--blueGrey900);
+		background-color: var(--list-panel-hover);
 	}
 	&:hover .PinIcon {
 		&_icon {
@@ -29,13 +29,16 @@
 		@include flex_row(flex-start, center);
 		@include flex_row(flex-start, flex-start);
 		text-decoration: none;
-		color: var(--blueGrey400);
-		&:hover &_name {
-			color: var(--accent);
-		}
+		font-family: var(--font-primary), sans-serif;
+		color: var(--text-panel-color);
 
 		&_name {
 			font-size: 1.5rem;
+			font-weight: 600;
+
+			&_uncategorized {
+				color: var(--yellow800);
+			}
 		}
 	}
 }
@@ -48,11 +51,20 @@
 }
 
 .SnippetCount {
+	width: 2.3rem;
+	height: 2.3rem;
+	min-width: 2.3rem;
+	min-height: 2.3rem;
+	border-radius: 50%;
+	background-color: var(--bg-input);
 	font-size: 1.2rem;
 	font-weight: 500;
-	color: var(--text-secondary);
 	align-self: flex-end;
+	@include flex_row(center, center);
 	margin-left: auto;
+	&_value {
+		color: var(--text-secondary);
+	}
 }
 
 .PinIcon {
@@ -63,49 +75,19 @@
 
 	&_icon {
 		@include fill_container;
-		fill: var(--blueGrey900);
+		fill: var(--pin-color);
 	}
 }
+.PinIcon svg.pinned,
 .pinned {
-	fill: var(--blueGrey900);
+	fill: var(--pinned-color);
 }
 
-.FaveIcon {
-	width: 1.6rem;
-	height: 1.6rem;
-
-	&_icon {
-		@include fill_container;
-		fill: var(--fave-color);
-	}
+.ListItem:hover .pinned {
+	fill: var(--pinned-color);
 }
 
-.faved {
-	fill: var(--yellow500);
-}
-
-.EditButton {
-	width: auto;
-	height: 1.6rem;
-	border: none;
-	outline: none;
-	background-color: transparent;
-	color: var(--blueGrey800);
-	margin-top: auto;
-	&:hover {
-		cursor: pointer;
-		color: var(--accent);
-	}
-}
-
-.Actions {
-	width: 100%;
-	// height: 20%;
-	@include flex_row(flex-end, baseline);
-	gap: 0 0.5rem;
-}
-
-// Force 'Un-Categorized' to end of <ListsPanel/>
+// Force 'Un-Categorized' to end of <ListsPanel/>'s list
 [data-list="13"] {
 	order: 2;
 }

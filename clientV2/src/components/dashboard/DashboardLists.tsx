@@ -1,19 +1,19 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import styles from "../../css/dashboard/DashboardLists.module.scss";
 import ListsPanel from "../lists/ListsPanel";
 import { useSelector } from "react-redux";
 import { selectUserLists } from "../../features/lists/listsSlice";
 import { selectTags } from "../../features/tags/tagsSlice";
 import { selectFaves } from "../../features/favorites/favesSlice";
-
-type Props = {};
+import { selectCurrentUser } from "../../features/currentUser/currentUserSlice";
 
 // CONSIDER MULTIPLE VIEW TYPES:
 // - List View: <ListsPanel/>
 // - Grid View: grid of list cards
 
-const DashboardLists = ({}: Props) => {
+const DashboardLists = () => {
 	// user lists
+	const currentUser = useSelector(selectCurrentUser);
 	const userLists = useSelector(selectUserLists);
 	const userTags = useSelector(selectTags);
 	// favorites
@@ -30,6 +30,7 @@ const DashboardLists = ({}: Props) => {
 				userLists={userLists}
 				userTags={userTags}
 				favesList={faveListIDs}
+				currentUser={currentUser}
 			/>
 			{/* SNIPPETS PANEL */}
 			{/*  */}

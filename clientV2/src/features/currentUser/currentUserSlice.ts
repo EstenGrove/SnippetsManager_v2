@@ -48,6 +48,7 @@ const initialState: ICurrentUserSlice = {
 		username: null,
 		email: null,
 		password: null,
+		token: null,
 		isAdmin: false,
 		isTeamLead: false,
 		createdDate: null,
@@ -84,6 +85,7 @@ const currentUserSlice = createSlice({
 			state.user.userID = action.payload.userID;
 			state.user.username = action.payload.username;
 			state.user.email = action.payload.email;
+			state.user.token = action.payload.token;
 		},
 		logoutUser: () => {
 			// reset state

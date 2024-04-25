@@ -18,11 +18,6 @@ app.use(cors());
 // Routes
 app.use("/api/v1", routes_v1);
 
-const getter = async () => {
-	const result = await getUserByEmail("echo.alchemist.design@gmail.com");
-	console.log("result", result);
-};
-
 // CRUDE ERROR CATCHING
 // ##TODOS:
 // - Fix this later & replace w/ proper error handling

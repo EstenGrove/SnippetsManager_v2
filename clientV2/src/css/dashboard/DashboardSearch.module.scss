@@ -1,0 +1,10 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.DashboardSearch {
+	@include fill_container;
+	padding: 4rem 2rem;
+	color: var(--text-main);
+	font-size: 2rem;
+}

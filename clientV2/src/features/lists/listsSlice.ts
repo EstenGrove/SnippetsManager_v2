@@ -4,7 +4,8 @@ import { RootState } from "../../store/store";
 import { IUserList } from "./types";
 import { TStatus } from "../types";
 import { ISnippet } from "../snippets/types";
-import { fetchUserLists } from "./operations";
+import { createNewUserList, fetchUserLists } from "./operations";
+import { updateAt } from "../../utils/utils_misc";
 
 export interface ICurrentList {
 	list: IUserList | object;
@@ -42,6 +43,17 @@ const listsSlice = createSlice({
 		) => {
 			state.currentList = action.payload;
 		},
+		toggleIsPinned: (state, action) => {
+			const currentLists = [...state.userLists];
+			const isPinned = action.payload.isPinned;
+			const listID = action.payload.listID;
+			const curIdx = currentLists.findIndex((list) => list.listID === listID);
+			const list = currentLists[curIdx];
+			state.userLists = updateAt(currentLists, curIdx, {
+				...list,
+				isPinned: isPinned,
+			});
+		},
 	},
 	extraReducers(builder) {
 		builder
@@ -57,17 +69,28 @@ const listsSlice = createSlice({
 			)
 			.addCase(fetchUserLists.rejected, (state: IListSlice) => {
 				state.status = "REJECTED";
+			})
+			.addCase(createNewUserList.pending, (state) => {
+				state.status = "PENDING";
+			})
+			.addCase(createNewUserList.fulfilled, (state, action) => {
+				state.status = "FULFILLED";
+				state.userLists = [...state.userLists, action.payload];
+			})
+			.addCase(createNewUserList.rejected, (state) => {
+				state.status = "REJECTED";
 			});
+
 		// USER LIST SNIPPETS (eg. snippets for the current list)
 		// .addCase(fetchUserListSnippets.pending, (state, action) => {
-		// 	state.status = "LOADING";
+		// 	state.status = "PENDING";
 		// })
 		// .addCase(fetchUserListSnippets.fulfilled, (state, action) => {
-		// 	state.status = "SUCCESS";
+		// 	state.status = "FULFILLED";
 		// 	state.currentList.snippets = action.payload;
 		// })
 		// .addCase(fetchUserListSnippets.rejected, (state, action) => {
-		// 	state.status = "FAILED";
+		// 	state.status = "REJECTED";
 		// });
 	},
 });
@@ -75,6 +98,7 @@ const listsSlice = createSlice({
 export const selectUserLists = (state: RootState) => state.lists.userLists;
 export const selectCurrentList = (state: RootState) => state.lists.currentList;
 
-export const { setUserLists, setCurrentList } = listsSlice.actions;
+export const { setUserLists, setCurrentList, toggleIsPinned } =
+	listsSlice.actions;
 
 export default listsSlice.reducer;

@@ -1,6 +1,6 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import jwt, { Secret } from "jsonwebtoken";
+import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 
 import { Request, Response, NextFunction } from "express";
 import {
@@ -257,17 +257,25 @@ const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
 
 	try {
 		// verify/compare tokens
-		const isValidToken = jwt.verify(
+		const tokenResults = jwt.verify(
 			token as string,
 			process.env.JWT_SECRET as Secret
-		);
-		const rawToken = isValidToken.toString();
-		console.log("isValidToken", isValidToken);
-		return res.status(200).json({
-			Status: "SUCCESS",
-			IsValid: !!isValidToken,
-			// Token: rawToken,
-		});
+		) as JwtPayload;
+		console.log("token", token);
+		if (tokenResults && !!tokenResults?.userID) {
+			return res.status(200).json({
+				Status: "SUCCESS",
+				IsValid: !!tokenResults,
+				Token: token,
+				UserID: tokenResults?.userID,
+			});
+		} else {
+			return res.status(403).json({
+				Status: "FAILED",
+				IsValid: false,
+				Token: null,
+			});
+		}
 	} catch (error) {
 		console.log("err", error);
 		return res.status(400).json({

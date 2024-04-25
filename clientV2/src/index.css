@@ -2,7 +2,7 @@
 	/* Misc Settings */
 	/* color-scheme: light dark; */
 	/* Font Variables */
-	font-family: Raleway, Roboto, sans-serif;
+	font-family: "Raleway", "Roboto", sans-serif;
 	line-height: 1.5;
 	font-weight: 400;
 	font-synthesis: none;
@@ -10,9 +10,9 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	--font-primary: Raleway, Roboto, sans-serif;
-	--font-secondary: Open Sans, Roboto, sans-serif;
-	--font-logo: Rubik Glitch, system-ui;
+	--font-primary: "Raleway", "Roboto", sans-serif;
+	--font-secondary: "Open Sans", "Roboto", sans-serif;
+	--font-logo: "Rubik Glitch", system-ui;
 
 	/* FONT-SIZES & SCALES */
 	--font-scale: 1;
@@ -214,6 +214,7 @@
 	--text-main: var(--blueGrey900);
 	--text-secondary: var(--blueGrey400);
 	--text-input-placeholder: var(--blueGrey600);
+	--text-panel-color: var(--blueGrey600);
 
 	/* SHADOWS & OUTLINES */
 	--main-outline: 0 0 0 2px var(--accent-bg);
@@ -248,13 +249,18 @@
 	--text-input: var(--blueGrey800);
 	--text-input-placeholder: var(--blueGrey400);
 	--text-secondary: var(--blueGrey400);
+	--text-panel-color: var(--blueGrey600);
 	/* BORDERS */
 	--border: var(--blueGrey300);
 	/* ICON COLORS/FILLS */
 	--icon-color: var(--blueGrey500);
 	--fave-color: var(--orange500);
+	--pin-color: var(--blueGrey400);
+	--pinned-color: var(--orange600);
 	/* ACCENTS */
 	--accent-red: var(--red1200);
+	/* LISTS PANEL */
+	--list-panel-hover: var(--blueGrey300);
 }
 
 :root[data-theme="dark"] {
@@ -273,14 +279,19 @@
 	--text-input: var(--blueGrey100);
 	--text-input-placeholder: var(--blueGrey600);
 	--text-secondary: var(--blueGrey600);
+	--text-panel-color: var(--blueGrey500);
 
 	/* BORDERS */
 	--border: var(--blueGrey900);
 	/* ICON COLORS/FILLS */
 	--icon-color: var(--blueGrey500);
 	--fave-color: var(--orange500);
+	--pin-color: var(--blueGrey600);
+	--pinned-color: var(--orange400);
 	/* ACCENTS */
 	--accent-red: var(--red1200);
+	/* LISTS PANEL */
+	--list-panel-hover: var(--blueGrey900);
 }
 
 *,

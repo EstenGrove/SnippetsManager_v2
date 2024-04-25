@@ -5,8 +5,15 @@ import {
 	checkAuth,
 	logoutUser,
 } from "../../controllers/auth/authController";
-import { getUserLists } from "../../controllers/lists/listsController";
+import {
+	getUserLists,
+	saveNewUserList,
+} from "../../controllers/lists/listsController";
 import { getUserTags } from "../../controllers/tags/tagsController";
+import {
+	getSnippetsByList,
+	saveNewSnippet,
+} from "../../controllers/snippets/snippetsController";
 
 const app = express();
 
@@ -19,9 +26,13 @@ app.use("/Logout", logoutUser);
 app.use("/Register", registerUser);
 app.use("/CheckAuth", checkAuth);
 
-// Lists, Tags
+// Get: Lists, Tags, Snippets
 app.use("/GetUserTags", getUserTags);
 app.use("/GetUserLists", getUserLists);
+app.use("/GetListSnippets", getSnippetsByList);
+// Update: Lists, Tags, Snippets
+app.use("/SaveNewUserList", saveNewUserList);
+app.use("/SaveNewSnippet", saveNewSnippet);
 
 // Export the app w/ routes
 export default app;

@@ -16,6 +16,7 @@
 		font-size: 1.6rem;
 		@include flex_col(flex-start, flex-start);
 		gap: 1rem 0;
+		transition: all 0.5s ease-in-out;
 		&::-webkit-scrollbar {
 			-webkit-appearance: none;
 			width: 6px;

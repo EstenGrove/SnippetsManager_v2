@@ -5,6 +5,7 @@ import {
 	selectCurrentUserAuth,
 } from "../features/currentUser/currentUserSlice";
 import {
+	IAuthResponse,
 	IAuthSession,
 	checkAuthSession,
 	clearRememberMe,
@@ -108,27 +109,26 @@ const useAuthSession = ({ onSuccess, onReject }: TAuthHookProps) => {
 		if (!needsRefresh) return;
 		const { sessionToken, userID } = authSession;
 		// refresh the session
-		const freshSession = await refreshAuthSession(
+		const freshSession = (await refreshAuthSession(
 			userID as string,
 			sessionToken as string
-		);
+		)) as IAuthResponse;
 
-		console.log("freshSession", freshSession);
-
+		console.log("freshSession(from API):", freshSession);
 		// session was validated
-		if (freshSession.Status === "SUCCESS" || freshSession.IsValid) {
+		if (freshSession.Status === "SUCCESS" && freshSession.IsValid) {
 			const updatedSession = {
-				userID: freshSession.userID,
-				sessionID: freshSession.sessionID,
-				sessionStart: freshSession.sessionStart,
-				sessionExpiry: freshSession.expiry,
+				userID: freshSession?.UserID as string,
+				sessionID: userAuthCache.sessionID,
+				sessionStart: userAuthCache.sessionStart,
+				sessionExpiry: userAuthCache.sessionExpiry,
 				sessionLength: SESSION_LENGTH,
-				sessionToken: freshSession.token,
-				lastRefreshedAt: freshSession.lastRefreshedAt,
+				sessionToken: freshSession.Token,
+				lastRefreshedAt: userAuthCache.lastRefreshedAt,
 			};
 			// sync to local state & update the cache
-			setAuthSession(updatedSession);
-			setRememberMe(updatedSession);
+			setAuthSession(updatedSession as IAuthSession);
+			setRememberMe(updatedSession as IAuthSession);
 			if (onSuccess) return onSuccess();
 		} else {
 			setAuthSession({
@@ -143,10 +143,18 @@ const useAuthSession = ({ onSuccess, onReject }: TAuthHookProps) => {
 			clearRememberMe();
 			if (onReject) return onReject();
 		}
-	}, [authSession, onReject, onSuccess]);
+	}, [
+		authSession,
+		onReject,
+		onSuccess,
+		userAuthCache.lastRefreshedAt,
+		userAuthCache.sessionExpiry,
+		userAuthCache.sessionID,
+		userAuthCache.sessionStart,
+	]);
 
 	useEffect(() => {
-		checkAndRefreshSession();
+		// checkAndRefreshSession();
 	}, [checkAndRefreshSession]);
 
 	return {

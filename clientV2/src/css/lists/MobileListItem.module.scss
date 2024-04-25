@@ -1,0 +1,29 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.MobileListItem {
+	width: 100%;
+	height: auto;
+	font-size: 1.3rem;
+	order: 1;
+	opacity: 1;
+	transition: opacity 0.3s ease-in-out;
+	transition-delay: 0.5s;
+
+	&_link {
+		width: 100%;
+		height: auto;
+		color: var(--text-main);
+		text-decoration: none;
+	}
+}
+[data-mobilecollapsed="true"] .MobileListItem {
+	opacity: 0;
+	transition-delay: 0.5s;
+}
+
+// Force 'Un-Categorized' to end of <ListsPanel/>'s list
+[data-list="13"] {
+	order: 2;
+}

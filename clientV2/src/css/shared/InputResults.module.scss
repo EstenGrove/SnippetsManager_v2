@@ -1,0 +1,38 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.InputResults {
+	width: 100%;
+	height: auto;
+	@include flex_col(flex-start, flex-start);
+	gap: 1rem 0;
+	margin-top: 1rem;
+}
+
+.SuccessMsg {
+	width: auto;
+	color: var(--green-accent);
+	font-size: 1.6rem;
+	@include flex_row(flex-start, center);
+
+	&_icon {
+		width: 1.8rem;
+		height: 1.8rem;
+		fill: var(--green-accent);
+		margin-right: 0.5rem;
+	}
+}
+.ErrorMsg {
+	width: auto;
+	color: var(--red-accent);
+	font-size: 1.5rem;
+	@include flex_row(flex-start, center);
+
+	&_icon {
+		width: 1.8rem;
+		height: 1.8rem;
+		fill: var(--red-accent);
+		margin-right: 0.5rem;
+	}
+}

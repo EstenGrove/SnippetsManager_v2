@@ -6,6 +6,25 @@
 	width: 100%;
 	height: auto;
 	margin-bottom: 2rem;
+
+	&_newList {
+		width: 90%;
+		display: block;
+		margin: 0 auto;
+		height: auto;
+		border: none;
+		outline: none;
+		// background-color: var(--accent);
+		// color: #fff;
+		background-color: transparent;
+		border: 2px solid var(--accent);
+		color: var(--accent);
+		padding: 0.7rem 1rem;
+		border-radius: 1rem;
+		font-size: 1.5rem;
+		margin-top: 2rem;
+		cursor: pointer;
+	}
 }
 
 [data-collapsed="true"] .ListsPanelHeading {
