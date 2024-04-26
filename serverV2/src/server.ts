@@ -2,10 +2,11 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import cors from "cors";
+import { formatTime } from "./shared/third-party/date-fns";
 // routes
 import routes_v1 from "./routes/v1/routes";
-import { formatTime } from "./shared/third-party/date-fns";
-import { getUserByEmail } from "./db/user/userQueries";
+import pool from "./db/db";
+import { getListSnippets } from "./db/snippets/snippetQueries";
 
 const app = express();
 

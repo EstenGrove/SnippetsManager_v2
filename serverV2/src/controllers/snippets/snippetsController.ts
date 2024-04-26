@@ -62,7 +62,9 @@ const saveNewSnippet = async (
 	res.status(200).json(responseObj);
 };
 
+// GETS
 app.get("/", getSnippetsByList);
+// POSTS
 app.post("/", saveNewSnippet);
 
 export { getSnippetsByList, saveNewSnippet };

@@ -64,7 +64,9 @@ const saveNewUserList = async (
 	res.status(200).json(responseObj);
 };
 
+// GETS
 app.get("/", getUserLists);
+// POSTS
 app.post("/", saveNewUserList);
 
 export { getUserLists, saveNewUserList };

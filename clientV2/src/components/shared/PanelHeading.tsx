@@ -12,6 +12,7 @@ type Props = {
 type PanelIcons = {
 	Tags: "tags";
 	Lists: "view_list";
+	Snippets?: string;
 	Recent?: string;
 	Favorites?: string;
 	Settings?: string;
@@ -19,6 +20,7 @@ type PanelIcons = {
 
 const icons: PanelIcons = {
 	Tags: "tags",
+	Snippets: "code2",
 	Lists: "view_list",
 	Recent: "recent_actors",
 	Favorites: "star_outline1",

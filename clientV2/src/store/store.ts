@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 // reducers
 import listsReducer from "../features/lists/listsSlice";
 import languagesReducer from "../features/languages/langsSlice";
+import snippetsReducer from "../features/snippets/snippetsSlice";
 import tagsReducer from "../features/tags/tagsSlice";
 import favesReducer from "../features/favorites/favesSlice";
 import currentUserReducer from "../features/currentUser/currentUserSlice";
@@ -14,6 +15,7 @@ const store = configureStore({
 		langs: languagesReducer,
 		tags: tagsReducer,
 		faves: favesReducer,
+		snippets: snippetsReducer,
 		currentUser: currentUserReducer,
 		currentTeam: currentTeamReducer,
 	},

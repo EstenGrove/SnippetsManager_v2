@@ -1,5 +1,6 @@
 import { ICurrentUser, IUserServerRecord } from "../features/currentUser/types";
 import { IServerUserList, IUserList } from "../features/lists/types";
+import { IServerSnippet } from "../features/snippets/types";
 import { IServerTag, ITag } from "../features/tags/types";
 
 export type TResponseStatus = "SUCCESS" | "FAILED";
@@ -102,6 +103,37 @@ const normalizeTagsForClient = (serverTags: IServerTag[]): ITag[] => {
 	return clientTags;
 };
 
+///////////////////////////////////////////////////
+///////////// SNIPPETS NORMALIZATION //////////////
+///////////////////////////////////////////////////
+
+const normalizeSnippetForClient = (serverSnippet: IServerSnippet) => {
+	const clientSnippet = {
+		snippetID: serverSnippet.SnippetID,
+		languageID: serverSnippet.LanguageID,
+		snippetName: serverSnippet.Name,
+		snippetDesc: serverSnippet.Desc,
+		snippetCode: serverSnippet.CodeSnippet,
+		snippetOrigin: serverSnippet.OriginInfo,
+		createdDate: serverSnippet.CreatedDate,
+		updatedDate: serverSnippet.UpdatedDate,
+		createdBy: serverSnippet.CreatedBy,
+		updatedBy: serverSnippet.UpdatedBy,
+		isActive: serverSnippet.IsActive,
+	};
+
+	return clientSnippet;
+};
+
+const normalizeSnippetsForClient = (serverSnippets: IServerSnippet[]) => {
+	if (!serverSnippets || serverSnippets.length <= 0) return [];
+	const clientSnippets = serverSnippets.map((serverSnippet) =>
+		normalizeSnippetForClient(serverSnippet)
+	);
+
+	return clientSnippets;
+};
+
 export {
 	// User Utils
 	normalizeUserForClient,
@@ -114,4 +146,7 @@ export {
 	normalizeTagForClient,
 	normalizeTagsForClient,
 	// Fave Utils
+	// Snippet Utils
+	normalizeSnippetForClient,
+	normalizeSnippetsForClient,
 };

@@ -16,9 +16,6 @@ const TABLE_NAME = "snippets";
 const getListSnippets = async (
 	listID: number
 ): Promise<IQueryRows | unknown> => {
-	const subQuery = `SELECT snippet_id FROM snippet_lists WHERE list_id = $1`;
-	const query = `SELECT * FROM snippets WHERE snippet_id = (${subQuery})`;
-
 	const joiner = `
   SELECT s.*, sl.list_id FROM 
     snippets s, snippet_lists sl
@@ -27,7 +24,6 @@ const getListSnippets = async (
   `;
 
 	try {
-		// const results = await pool.query(query, [listID]);
 		const results = await pool.query(joiner, [listID]);
 		return results.rows;
 	} catch (error) {

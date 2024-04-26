@@ -26,11 +26,11 @@ app.use("/Logout", logoutUser);
 app.use("/Register", registerUser);
 app.use("/CheckAuth", checkAuth);
 
-// Get: Lists, Tags, Snippets
+// Get(s): Lists, Tags, Snippets
 app.use("/GetUserTags", getUserTags);
 app.use("/GetUserLists", getUserLists);
 app.use("/GetListSnippets", getSnippetsByList);
-// Update: Lists, Tags, Snippets
+// Update(s): Lists, Tags, Snippets
 app.use("/SaveNewUserList", saveNewUserList);
 app.use("/SaveNewSnippet", saveNewSnippet);
 

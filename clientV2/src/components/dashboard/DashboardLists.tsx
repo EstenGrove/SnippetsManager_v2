@@ -6,6 +6,7 @@ import { selectUserLists } from "../../features/lists/listsSlice";
 import { selectTags } from "../../features/tags/tagsSlice";
 import { selectFaves } from "../../features/favorites/favesSlice";
 import { selectCurrentUser } from "../../features/currentUser/currentUserSlice";
+import SnippetsPanel from "../snippets/SnippetsPanel";
 
 // CONSIDER MULTIPLE VIEW TYPES:
 // - List View: <ListsPanel/>
@@ -26,6 +27,7 @@ const DashboardLists = () => {
 
 	return (
 		<div className={styles.DashboardLists}>
+			{/* LISTS PANEL */}
 			<ListsPanel
 				userLists={userLists}
 				userTags={userTags}
@@ -33,6 +35,7 @@ const DashboardLists = () => {
 				currentUser={currentUser}
 			/>
 			{/* SNIPPETS PANEL */}
+			<SnippetsPanel userLists={userLists} currentUser={currentUser} />
 			{/*  */}
 			{/*  */}
 		</div>
