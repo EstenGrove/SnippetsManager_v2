@@ -14,7 +14,22 @@ const getListSnippets = async (
 			token: token,
 		});
 		const response = await request.json();
-		console.log("response", response);
+		return response;
+	} catch (error) {
+		console.log("error", error);
+		return error;
+	}
+};
+// Retrieves the snippet counts for each list for given user
+const getSnippetCounts = async (token: string, userID: string) => {
+	let url = currentEnv.base + snippets.getSnippetCountsByList;
+	url += "?" + new URLSearchParams({ userID });
+
+	try {
+		const request = await fetchWithAuth(url, {
+			token: token,
+		});
+		const response = await request.json();
 		return response;
 	} catch (error) {
 		console.log("error", error);
@@ -22,4 +37,33 @@ const getListSnippets = async (
 	}
 };
 
-export { getListSnippets };
+// PROCESSING SNIPPET-RELATED DATA //
+
+type TCounts = {
+	[key: number]: [{ ListID: number; Count: number }];
+};
+
+type TCountResults = {
+	[key: number]: {
+		count: number;
+		listID: number;
+	};
+};
+
+const formatSnippetCount = (counts: TCounts): TCountResults => {
+	const results: TCountResults = {};
+	for (const [key, arr] of Object.entries(counts)) {
+		results[key as keyof object] = {
+			count: arr?.[0]?.Count,
+			listID: Number(key),
+		};
+	}
+	return results as TCountResults;
+};
+
+export {
+	getListSnippets,
+	getSnippetCounts,
+	// formatting
+	formatSnippetCount,
+};

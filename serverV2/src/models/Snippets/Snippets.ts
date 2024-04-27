@@ -39,3 +39,13 @@ export interface IDBSnippetRecord {
 	updated_by: string | null;
 	is_active: boolean;
 }
+
+// Snippet Count(s) Records (eg. by list)
+export interface IDBSnippetCount {
+	list_id: number;
+	snippet_count: number | string;
+}
+export interface IServerSnippetCount {
+	ListID: number;
+	Count: number;
+}

@@ -1,0 +1,22 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.Editor {
+	width: 100%;
+	height: auto;
+}
+
+.ͼ15 {
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	min-height: 80vh;
+	background-color: var(--bg-foreground);
+}
+.cm-editor .ͼ1 .ͼ2 .ͼ4 .ͼ1b .ͼ15 {
+	background-color: var(--bg-foreground);
+}
+.cm-theme-dark {
+	background-color: var(--bg-foreground);
+}

@@ -17,7 +17,13 @@ const SnippetsPanelHeading = ({
 	return (
 		<div className={styles.SnippetsPanelHeading}>
 			<PanelHeading title="Snippets" itemsCount={numOfSnippets} />
-			<PanelSearch searchVal={searchVal} handleSearch={handleSearch} />
+			<PanelSearch
+				key="searchSnippets"
+				name="searchSnippets"
+				id="searchSnippets"
+				searchVal={searchVal}
+				handleSearch={handleSearch}
+			/>
 			<button className={styles.SnippetsPanelHeading_addNewBtn}>
 				New Snippet
 			</button>

@@ -31,6 +31,31 @@ const getListSnippets = async (
 	}
 };
 
+// Retrieves the snippet count for each list for a given user.
+const getSnippetCounts = async (
+	userID: string
+): Promise<IQueryRows | unknown> => {
+	const query = `
+  SELECT 
+	  ul.list_id, 
+	  COUNT(s.snippet_id) AS snippet_count
+  FROM user_lists ul
+	  JOIN snippet_lists sl ON ul.list_id = sl.list_id and ul.user_id = $1
+	  JOIN snippets s ON sl.snippet_id = s.snippet_id
+  GROUP BY ul.list_id;
+  `;
+
+	try {
+		const results = await pool.query(query, [userID]);
+		const rows = results?.rows;
+		console.log("rows", rows);
+		return rows;
+	} catch (error) {
+		console.log("ERROR:", error);
+		return error;
+	}
+};
+
 const insertSnippet = async (snippet: IClientSnippetRecord) => {
 	console.log("SNIPPET INSERT", snippet);
 	const {
@@ -65,4 +90,4 @@ const insertSnippet = async (snippet: IClientSnippetRecord) => {
 	}
 };
 
-export { getListSnippets, insertSnippet };
+export { getListSnippets, getSnippetCounts, insertSnippet };

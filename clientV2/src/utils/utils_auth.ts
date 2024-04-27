@@ -44,7 +44,6 @@ const login = async (username: string, password: string) => {
 		const response = await request.json();
 		return response;
 	} catch (error) {
-		console.log("error", error);
 		return error;
 	}
 };
@@ -61,7 +60,6 @@ const logout = async (sessionID: string, token: string) => {
 		const response = await request.json();
 		return response;
 	} catch (error) {
-		console.log("error", error);
 		return error;
 	}
 };
@@ -75,10 +73,9 @@ const checkAuthSession = async (userID: string, token: string) => {
 			token: token,
 		});
 		const response = await request.json();
-		console.log("CheckAuth(response):", response);
+
 		return response;
 	} catch (error) {
-		console.log("Error(checkauth):", error);
 		return error;
 	}
 };
@@ -101,10 +98,9 @@ const refreshAuthSession = async (
 			token: token,
 		});
 		const response = await request.json();
-		console.log("CheckAuth(response):", response);
+
 		return response;
 	} catch (error: unknown) {
-		console.log("Error(checkauth):", error);
 		return error;
 	}
 };
@@ -168,7 +164,6 @@ const setRememberMe = (authSession: IAuthSession): void => {
 		sessionToken,
 		lastRefreshedAt,
 	} = authSession;
-	console.log("authSession(rememberMe)", authSession);
 
 	const authCache: IAuthSessionCache = {
 		uid: userID as string,
@@ -181,8 +176,7 @@ const setRememberMe = (authSession: IAuthSession): void => {
 	};
 	const key = AUTH_SESSION_CACHE_KEY;
 	const serial = JSON.stringify(authCache);
-	console.log("authCache", authCache);
-	console.log("serial:\n", serial);
+
 	localStorage.setItem(key, serial);
 };
 /**

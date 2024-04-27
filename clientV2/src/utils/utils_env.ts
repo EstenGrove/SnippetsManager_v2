@@ -78,6 +78,7 @@ const API_ENDPOINTS = {
 		getByID: "/GetSnippetByID",
 		getUserSnippets: "/GetUserSnippets", // all user snippets
 		getListSnippets: "/GetListSnippets", // all snippets for a list ID
+		getSnippetCountsByList: "/GetSnippetCounts",
 		saveNew: "/SaveNewSnippet",
 	},
 };

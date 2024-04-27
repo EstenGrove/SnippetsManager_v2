@@ -1,20 +1,21 @@
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 import styles from "../../css/lists/PanelSearch.module.scss";
-import sprite from "../../assets/icons/all.svg";
 import SearchInput from "../shared/SearchInput";
 
 type Props = {
+	id: string;
+	name: string;
 	searchVal: string;
 	handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const PanelSearch = ({ searchVal, handleSearch }: Props) => {
+const PanelSearch = ({ name, id, searchVal, handleSearch }: Props) => {
 	return (
 		<div className={styles.PanelSearch}>
 			<SearchInput
-				key="searchLists"
-				name="searchLists"
-				id="searchLists"
+				key={`${name}_${name}`}
+				id={id}
+				name={name}
 				searchVal={searchVal}
 				handleSearch={handleSearch}
 			/>

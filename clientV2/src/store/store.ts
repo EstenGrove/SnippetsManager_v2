@@ -8,6 +8,7 @@ import tagsReducer from "../features/tags/tagsSlice";
 import favesReducer from "../features/favorites/favesSlice";
 import currentUserReducer from "../features/currentUser/currentUserSlice";
 import currentTeamReducer from "../features/currentTeam/currentTeamSlice";
+import dashboardReducer from "../features/dashboard/dashboardSlice";
 
 const store = configureStore({
 	reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
 		tags: tagsReducer,
 		faves: favesReducer,
 		snippets: snippetsReducer,
+		dashboard: dashboardReducer,
 		currentUser: currentUserReducer,
 		currentTeam: currentTeamReducer,
 	},

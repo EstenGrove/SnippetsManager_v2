@@ -133,18 +133,31 @@ const useHotKeys: IHotKeysHook = (targetKeys, onPress = null): boolean => {
 
 					return isPressed;
 				});
+				// We only want to override browser defaults IF the key combo matches
+				// ...otherwise let all other browser defaults proceeed as normal
+				if (allPressed) {
+					e.preventDefault();
+				}
 				setWasPressed(allPressed);
 				return allPressed && onPress ? onPress(e) : allPressed;
 			} else {
 				// handle single key requirement
 				const target = keysList.current[0];
 				const pressed = e.key === target;
+				// We only want to override browser defaults IF the key combo matches
+				// ...otherwise let all other browser defaults proceeed as normal
+				if (pressed) {
+					e.preventDefault();
+				}
 				setWasPressed(pressed);
 				return pressed && onPress ? onPress(e) : pressed;
 			}
 		};
 
-		window.addEventListener("keydown", keydownHandler);
+		window.addEventListener("keydown", keydownHandler, {
+			// passive: true,
+			// capture: true,
+		});
 		return () => {
 			isMounted = false;
 			window.removeEventListener("keydown", keydownHandler);

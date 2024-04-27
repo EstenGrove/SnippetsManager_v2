@@ -1,0 +1,17 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.EditorButton {
+	width: auto;
+	height: auto;
+	color: var(--text-main);
+}
+.EditorStyles {
+	color: #fff;
+}
+
+.EditorCM {
+	width: 100%;
+	min-width: 100%;
+}

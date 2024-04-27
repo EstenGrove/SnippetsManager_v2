@@ -3,10 +3,17 @@ import { NextFunction, Request, Response } from "express";
 import { ResponseModel } from "../../models/shared/ResponseModel";
 import {
 	getListSnippets,
+	getSnippetCounts,
 	insertSnippet,
 } from "../../db/snippets/snippetQueries";
-import { normalizeSnippetsForServer } from "../../shared/data/normalizeSnippets";
-import { IDBSnippetRecord } from "../../models/Snippets/Snippets";
+import {
+	normalizeGroupedCounts,
+	normalizeSnippetsForServer,
+} from "../../shared/data/normalizeSnippets";
+import {
+	IDBSnippetCount,
+	IDBSnippetRecord,
+} from "../../models/Snippets/Snippets";
 
 const app = express();
 
@@ -25,6 +32,28 @@ const getSnippetsByList = async (
 		status: "SUCCESS",
 		data: {
 			Snippets: normalSnippets,
+		},
+		msg: `${rowCount} results found.`,
+		results: rowCount,
+		errorMsg: null,
+		errorStack: null,
+	});
+	res.status(200).json(responseObj);
+};
+
+const getSnippetsCountByList = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const userID = req.query.userID as string;
+	const counts = (await getSnippetCounts(userID)) as Array<IDBSnippetCount>;
+	const grouped = normalizeGroupedCounts(counts as Array<IDBSnippetCount>);
+	const rowCount = counts?.length ?? 0;
+	const responseObj = new ResponseModel({
+		status: "SUCCESS",
+		data: {
+			SnippetCounts: grouped,
 		},
 		msg: `${rowCount} results found.`,
 		results: rowCount,
@@ -64,7 +93,8 @@ const saveNewSnippet = async (
 
 // GETS
 app.get("/", getSnippetsByList);
+app.get("/", getSnippetsCountByList);
 // POSTS
 app.post("/", saveNewSnippet);
 
-export { getSnippetsByList, saveNewSnippet };
+export { getSnippetsByList, getSnippetsCountByList, saveNewSnippet };

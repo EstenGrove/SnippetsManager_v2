@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import styles from "../../css/shared/SearchInput.module.scss";
 import sprite from "../../assets/icons/all.svg";
 
@@ -10,8 +10,8 @@ type Props = {
 };
 
 const SearchInput = ({
-	name = "searchLists",
-	id = "searchLists",
+	name = "search",
+	id = "search",
 	searchVal,
 	handleSearch,
 }: Props) => {

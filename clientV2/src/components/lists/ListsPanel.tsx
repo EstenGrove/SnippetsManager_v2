@@ -16,12 +16,14 @@ import { toggleIsPinned } from "../../features/lists/listsSlice";
 import MobileListsPanel from "./MobileListsPanel";
 import NewListDialog from "./NewListDialog";
 import { ICurrentUser } from "../../features/currentUser/types";
+import { ISnippetCounts } from "../../features/dashboard/types";
 
 type Props = {
 	userLists: IUserList[] | [];
 	userTags: ITag[] | [];
 	favesList?: Array<number> | [];
 	currentUser: ICurrentUser;
+	snippetCounts: ISnippetCounts;
 };
 
 type ToggleProps = {
@@ -39,6 +41,15 @@ const searchList = (val: string, list: IUserList[]) => {
 			entryVal.includes(searchVal) || entryVal.startsWith(searchVal);
 		return hasMatch;
 	});
+};
+
+const getCountFromData = (listID: number, counts: ISnippetCounts) => {
+	const entry = counts?.[listID];
+	if (entry) {
+		return entry?.count ?? 0;
+	} else {
+		return 0;
+	}
 };
 
 const PanelToggle = ({ toggleSidebar, isCollapsed = false }: ToggleProps) => {
@@ -61,59 +72,14 @@ const PanelToggle = ({ toggleSidebar, isCollapsed = false }: ToggleProps) => {
 		</button>
 	);
 };
-// const MobilePanelToggle = ({
-// 	toggleSidebar,
-// 	isCollapsed = false,
-// }: ToggleProps) => {
-// 	const closed = "rotateZ(0)";
-// 	const open = "rotateZ(-180deg)";
-// 	const css = {
-// 		transform: isCollapsed ? closed : open,
-// 		transition: "all .3s ease-in-out",
-// 		transitionDelay: ".3s",
-// 	};
-// 	return (
-// 		<button
-// 			type="button"
-// 			className={styles.MobilePanelToggle}
-// 			onClick={toggleSidebar}
-// 		>
-// 			<svg className={styles.MobilePanelToggle_icon} style={css}>
-// 				<use xlinkHref={`${sprite}#icon-menu1`}></use>
-// 			</svg>
-// 		</button>
-// 	);
-// };
 
-type MobilePanelProps = {
-	userLists: IUserList[] | [];
-	userTags: ITag[] | [];
-};
-
-// const MobileListsPanel = ({ userLists, userTags }: MobilePanelProps) => {
-// 	const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
-
-// 	const toggleSidebar = () => {
-// 		setIsCollapsed(!isCollapsed);
-// 	};
-
-// 	return (
-// 		<aside
-// 			data-mobilecollapsed={isCollapsed}
-// 			className={styles.MobileListsPanel}
-// 		>
-// 			{userLists &&
-// 				userLists.map((list, idx) => <div key={idx}>{list?.listName}</div>)}
-
-// 			<MobilePanelToggle
-// 				isCollapsed={isCollapsed}
-// 				toggleSidebar={toggleSidebar}
-// 			/>
-// 		</aside>
-// 	);
-// };
-
-const ListsPanel = ({ userLists, userTags, favesList, currentUser }: Props) => {
+const ListsPanel = ({
+	userLists,
+	userTags,
+	favesList,
+	currentUser,
+	snippetCounts,
+}: Props) => {
 	const dispatch = useAppDispatch();
 
 	const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
@@ -157,6 +123,7 @@ const ListsPanel = ({ userLists, userTags, favesList, currentUser }: Props) => {
 		console.log(`Mark as Favorite: `, listID);
 	};
 	const handleListSearch = (e: ChangeEvent<HTMLInputElement>) => {
+		console.log("e", e);
 		setSearchVal(e.target.value as string);
 	};
 	const handleNewList = (e: ChangeEvent<HTMLInputElement>) => {
@@ -194,6 +161,8 @@ const ListsPanel = ({ userLists, userTags, favesList, currentUser }: Props) => {
 		);
 	};
 
+	console.log("searchVal", searchVal);
+
 	if (winWidth <= 800) {
 		return <MobileListsPanel userLists={visibleLists} userTags={userTags} />;
 	}
@@ -219,6 +188,7 @@ const ListsPanel = ({ userLists, userTags, favesList, currentUser }: Props) => {
 							isSelected={Number(listID) === list.listID}
 							toggleIsPinned={() => handleIsPinned(list.listID)}
 							toggleIsFave={() => handleIsFave(list.listID)}
+							snippetCount={getCountFromData(list.listID, snippetCounts)}
 						/>
 					))}
 			</PanelList>

@@ -4,6 +4,8 @@
 
 .SnippetsPanel {
 	width: 25rem;
+	min-width: 25rem;
+	max-width: 25rem;
 	height: 100vh;
 	// background-color: var(--bg-foreground);
 	background-color: var(--bg-main-panel);

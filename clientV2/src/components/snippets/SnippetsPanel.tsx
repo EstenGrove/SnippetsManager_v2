@@ -1,15 +1,15 @@
 import { useEffect, useCallback, useMemo, useState, ChangeEvent } from "react";
 import styles from "../../css/snippets/SnippetsPanel.module.scss";
-import PanelList from "../shared/PanelList";
-import { ICurrentUser } from "../../features/currentUser/types";
-import { useSelector } from "react-redux";
-import { selectCurrentList } from "../../features/lists/listsSlice";
-import { useParams } from "react-router-dom";
-import { IUserList } from "../../features/lists/types";
-import SnippetsPanelHeading from "./SnippetsPanelHeading";
 import { useAppDispatch } from "../../store/store";
 import { fetchListSnippets } from "../../features/snippets/operations";
 import { selectUserSnippets } from "../../features/snippets/snippetsSlice";
+import { ICurrentUser } from "../../features/currentUser/types";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { IUserList } from "../../features/lists/types";
+// components
+import PanelList from "../shared/PanelList";
+import SnippetsPanelHeading from "./SnippetsPanelHeading";
 import SnippetsItem from "./SnippetsItem";
 import EmptyData from "../shared/EmptyData";
 
@@ -61,8 +61,6 @@ const SnippetsPanel = ({ userLists, currentUser }: Props) => {
 			isMounted = false;
 		};
 	}, [getCurrentListsSnippets, listID]);
-
-	console.log("currentList", currentList);
 
 	if (!currentList) {
 		return null;

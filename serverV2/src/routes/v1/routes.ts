@@ -12,6 +12,7 @@ import {
 import { getUserTags } from "../../controllers/tags/tagsController";
 import {
 	getSnippetsByList,
+	getSnippetsCountByList,
 	saveNewSnippet,
 } from "../../controllers/snippets/snippetsController";
 
@@ -30,6 +31,7 @@ app.use("/CheckAuth", checkAuth);
 app.use("/GetUserTags", getUserTags);
 app.use("/GetUserLists", getUserLists);
 app.use("/GetListSnippets", getSnippetsByList);
+app.use("/GetSnippetCounts", getSnippetsCountByList);
 // Update(s): Lists, Tags, Snippets
 app.use("/SaveNewUserList", saveNewUserList);
 app.use("/SaveNewSnippet", saveNewSnippet);

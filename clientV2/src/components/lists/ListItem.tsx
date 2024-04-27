@@ -9,6 +9,7 @@ type Props = {
 	list: IUserList;
 	isFave: boolean;
 	isSelected: boolean;
+	snippetCount: number;
 	toggleIsPinned: () => void;
 	toggleIsFave: () => void;
 };
@@ -46,9 +47,13 @@ const SnippetCount = ({ snippetCount }: SnippetCount) => {
 	);
 };
 
-const ListItem = ({ list, isSelected = false, toggleIsPinned }: Props) => {
+const ListItem = ({
+	list,
+	isSelected = false,
+	toggleIsPinned,
+	snippetCount = 0,
+}: Props) => {
 	const { listID, listName, isPinned } = list;
-	const count = Math.ceil(Math.random() * 100);
 
 	return (
 		<div
@@ -70,7 +75,7 @@ const ListItem = ({ list, isSelected = false, toggleIsPinned }: Props) => {
 					{addEllipsis(listName, 20)}
 				</div>
 			</NavLink>
-			<SnippetCount snippetCount={count} />
+			<SnippetCount snippetCount={snippetCount} />
 		</div>
 	);
 };

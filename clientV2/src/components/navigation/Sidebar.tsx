@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, ChangeEventHandler, useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "../../css/navigation/Sidebar.module.scss";
 import sprite from "../../assets/icons/all.svg";
@@ -9,8 +9,11 @@ import Selector from "../shared/Selector";
 import MobileSidebar from "./MobileSidebar";
 import ToggleSwitch from "../shared/ToggleSwitch";
 import { ThemeContext } from "../../context/ThemeContext";
+import { ICurrentUser } from "../../features/currentUser/types";
 
-type Props = {};
+type Props = {
+	currentUser: ICurrentUser;
+};
 
 const MOCK_USER = {
 	firstName: "Esten",
@@ -128,7 +131,7 @@ const WorkspaceButton = ({ isDisabled = false }) => {
 
 const WORKSPACES = ["Eldermark", "ALA", "Personal"];
 
-const Sidebar = ({ currentUser }) => {
+const Sidebar = ({ currentUser }: Props) => {
 	const { width } = useWindowSize();
 	const winWidth = width as number;
 	const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
@@ -139,7 +142,7 @@ const Sidebar = ({ currentUser }) => {
 		setIsCollapsed(!isCollapsed);
 	};
 
-	const handleTheme = (e: ChangeEvent) => {
+	const handleTheme = (e: ChangeEvent<HTMLInputElement>) => {
 		const isChecked = e.target.checked;
 		setIsDark(isChecked);
 		toggleTheme();
@@ -159,7 +162,7 @@ const Sidebar = ({ currentUser }) => {
 							name="theme"
 							id="theme"
 							val={isDark}
-							handleCheckbox={handleTheme}
+							handleCheckbox={handleTheme as ChangeEventHandler}
 						/>
 						<div className={styles.Sidebar_header_row_label}>Dark Mode</div>
 					</div>
