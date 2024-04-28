@@ -1,4 +1,5 @@
 import { ICurrentUser, IUserServerRecord } from "../features/currentUser/types";
+import { IServerLanguage } from "../features/languages/types";
 import { IServerUserList, IUserList } from "../features/lists/types";
 import { IServerSnippet } from "../features/snippets/types";
 import { IServerTag, ITag } from "../features/tags/types";
@@ -17,6 +18,37 @@ export interface IResponse {
 	ErrorMessage: string;
 	ErrorStack: string;
 }
+
+///////////////////////////////////////////////////
+///////////// LANGUAGE NORMALIZATION //////////////
+///////////////////////////////////////////////////
+
+const normalizeLangForClient = (serverLang: IServerLanguage) => {
+	const clientLang = {
+		languageID: serverLang.LanguageID,
+		name: serverLang.Name,
+		alias: serverLang.Alias,
+		desc: serverLang?.Desc,
+		extension: serverLang?.Extension,
+		isActive: serverLang.IsActive,
+		createdDate: serverLang.CreatedDate,
+		updatedDate: serverLang.UpdatedDate,
+		createdBy: serverLang.CreatedBy,
+		updatedBy: serverLang.UpdatedBy,
+	};
+
+	return clientLang;
+};
+
+const normalizeLangsForClient = (serverLangs: IServerLanguage[]) => {
+	if (!serverLangs || serverLangs?.length <= 0 || !Array.isArray(serverLangs))
+		return [];
+	const clientLangs = serverLangs.map((langRecord) =>
+		normalizeLangForClient(langRecord)
+	);
+
+	return clientLangs;
+};
 
 ///////////////////////////////////////////////////
 //////////// CURRENT-USER NORMALIZATION ///////////
@@ -135,6 +167,9 @@ const normalizeSnippetsForClient = (serverSnippets: IServerSnippet[]) => {
 };
 
 export {
+	// Language Utils
+	normalizeLangForClient,
+	normalizeLangsForClient,
 	// User Utils
 	normalizeUserForClient,
 	normalizeUsersForClient,

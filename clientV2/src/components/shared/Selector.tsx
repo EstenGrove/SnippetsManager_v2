@@ -78,13 +78,21 @@ const SelectorOptions = ({
 };
 
 type Props = {
+	initialVal?: string;
 	placeholder?: string;
 	options: string[] | [];
 	selectOption: (option: string) => void;
 };
 
-const Selector = ({ placeholder = "Select option", options }: Props) => {
-	const [selectedOption, setSelectedOption] = useState<string>(placeholder);
+const Selector = ({
+	initialVal = "",
+	placeholder = "Select option",
+	options,
+}: Props) => {
+	const [selectedOption, setSelectedOption] = useState<string>(() => {
+		if (initialVal) return initialVal;
+		return placeholder;
+	});
 	const [showOptions, setShowOptions] = useState<boolean>(false);
 
 	const handleSelect = (option: string) => {
@@ -108,7 +116,7 @@ const Selector = ({ placeholder = "Select option", options }: Props) => {
 				onClick={openOptions}
 				className={styles.Selector_input}
 			>
-				<span>{selectedOption}</span>
+				<span data-placeholder={!selectedOption}>{selectedOption}</span>
 				<svg className={styles.Selector_input_icon}>
 					<use xlinkHref={`${sprite}#icon-unfold_more`}></use>
 				</svg>

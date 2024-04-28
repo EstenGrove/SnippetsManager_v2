@@ -2,17 +2,7 @@
 @import "../../sass/mixins";
 @import "../../sass/custom";
 
-.Editor {
+.CurrentSnippetPanel {
 	width: 100%;
 	height: auto;
-
-	&_toolbar {
-		width: 100%;
-		height: 10rem;
-	}
-
-	&_code {
-		width: 100%;
-		height: auto;
-	}
 }

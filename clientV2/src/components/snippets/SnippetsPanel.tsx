@@ -1,21 +1,21 @@
 import { useEffect, useCallback, useMemo, useState, ChangeEvent } from "react";
 import styles from "../../css/snippets/SnippetsPanel.module.scss";
 import { useAppDispatch } from "../../store/store";
+import { Route, Routes, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { fetchListSnippets } from "../../features/snippets/operations";
 import { selectUserSnippets } from "../../features/snippets/snippetsSlice";
 import { ICurrentUser } from "../../features/currentUser/types";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { IUserList } from "../../features/lists/types";
+import { ISnippetCounts } from "../../features/dashboard/types";
 // components
-import PanelList from "../shared/PanelList";
-import SnippetsPanelHeading from "./SnippetsPanelHeading";
-import SnippetsItem from "./SnippetsItem";
-import EmptyData from "../shared/EmptyData";
+import DashboardNav from "../dashboard/DashboardNav";
+import SnippetsContentPanel from "./SnippetsContentPanel";
 
 type Props = {
 	currentUser: ICurrentUser;
 	userLists: IUserList[];
+	snippetCounts: ISnippetCounts;
 };
 
 const getCurrentList = (listID: number, userLists: IUserList[]) => {
@@ -23,8 +23,7 @@ const getCurrentList = (listID: number, userLists: IUserList[]) => {
 	return userLists.find((list) => list.listID === listID);
 };
 
-const SnippetsPanel = ({ userLists, currentUser }: Props) => {
-	// const currentList = useSelector(selectCurrentList);
+const SnippetsPanel = ({ userLists, currentUser, snippetCounts }: Props) => {
 	const { token, userID } = currentUser;
 	const dispatch = useAppDispatch();
 	const params = useParams();
@@ -42,11 +41,6 @@ const SnippetsPanel = ({ userLists, currentUser }: Props) => {
 		};
 		return dispatch(fetchListSnippets(args));
 	}, [dispatch, listID, token, userID]);
-	const [searchVal, setSearchVal] = useState<string>("");
-
-	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-		setSearchVal(e.target.value);
-	};
 
 	// auto-fetch snippets when listID changes
 	useEffect(() => {
@@ -67,21 +61,23 @@ const SnippetsPanel = ({ userLists, currentUser }: Props) => {
 	}
 	return (
 		<div className={styles.SnippetsPanel}>
-			<SnippetsPanelHeading
-				searchVal={searchVal}
-				handleSearch={handleSearch}
-				numOfSnippets={listSnippets?.length ?? 0}
-			/>
-			<PanelList key="SNIPPETS">
-				{!listSnippets || (listSnippets?.length <= 0 && <EmptyData />)}
-				{listSnippets &&
-					listSnippets.map((snippet, idx) => (
-						<SnippetsItem
-							key={`${snippet.snippetID}-${idx}`}
-							snippet={snippet}
+			{/* <DashboardNav /> */}
+			<Routes>
+				<Route
+					path="*"
+					element={
+						<SnippetsContentPanel
+							currentList={currentList}
+							currentUser={currentUser}
+							snippetCounts={snippetCounts}
+							snippets={listSnippets}
 						/>
-					))}
-			</PanelList>
+					}
+				/>
+			</Routes>
+
+			{/*  */}
+			{/*  */}
 		</div>
 	);
 };

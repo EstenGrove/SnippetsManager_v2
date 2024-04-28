@@ -5,6 +5,7 @@ import sprite2 from "../../assets/icons/all.svg";
 import { ISnippet } from "../../features/snippets/types";
 import { addEllipsis } from "../../utils/utils_processing";
 import { getRelativeDistanceToNow } from "../../utils/utils_dates";
+import { NavLink } from "react-router-dom";
 
 type Props = {
 	snippet: ISnippet;
@@ -53,6 +54,12 @@ const FaveButton = ({ isFave = true, toggleIsFave }: FaveProps) => {
 	);
 };
 
+const getSnippetPath = (name: string): string => {
+	const lower = name.toLowerCase();
+	const withHypens = lower.replace(/\s/gm, "-");
+	return withHypens;
+};
+
 const SnippetsItem = ({ snippet }: Props) => {
 	const { snippetID, snippetName, createdDate } = snippet;
 	const [isFave, setIsFave] = useState<boolean>(false);
@@ -62,24 +69,28 @@ const SnippetsItem = ({ snippet }: Props) => {
 	};
 
 	return (
-		<div className={styles.SnippetsItem}>
-			<div className={styles.SnippetsItem_top}>
-				<div className={styles.SnippetsItem_top_title}>
-					{addEllipsis(snippetName, 45)}
+		<NavLink to={`${getSnippetPath(snippetName)}`}>
+			<div className={styles.SnippetsItem}>
+				<div className={styles.SnippetsItem_top}>
+					<div className={styles.SnippetsItem_top_title}>
+						{addEllipsis(snippetName, 45)}
+					</div>
+					<span className={styles.SnippetsItem_top_createdDate}>
+						{getRelativeDistanceToNow(createdDate)}
+					</span>
 				</div>
-				<span className={styles.SnippetsItem_top_createdDate}>
-					{getRelativeDistanceToNow(createdDate)}
-				</span>
+				<div className={styles.SnippetsItem_bottom}>
+					<div className={styles.SnippetsItem_bottom_tags}>
+						<Tags
+							tagNames={Number(snippetID) % 2 === 0 ? ["ts", "react"] : []}
+						/>
+					</div>
+					<div className={styles.SnippetsItem_bottom_actions}>
+						<FaveButton isFave={isFave} toggleIsFave={handleIsFave} />
+					</div>
+				</div>
 			</div>
-			<div className={styles.SnippetsItem_bottom}>
-				<div className={styles.SnippetsItem_bottom_tags}>
-					<Tags tagNames={Number(snippetID) % 2 === 0 ? ["ts", "react"] : []} />
-				</div>
-				<div className={styles.SnippetsItem_bottom_actions}>
-					<FaveButton isFave={isFave} toggleIsFave={handleIsFave} />
-				</div>
-			</div>
-		</div>
+		</NavLink>
 	);
 };
 

@@ -1,0 +1,15 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.SnippetsList {
+	@include fill_container;
+	max-height: auto;
+	margin-top: 2rem;
+
+	&_cardsList {
+		@include fill_container;
+		padding: 2rem 3rem;
+		@include flex_row(space-between, flex-start, wrap);
+	}
+}

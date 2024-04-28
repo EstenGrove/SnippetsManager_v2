@@ -3,6 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store/store";
 import { ILanguage } from "./types";
 import { TStatus } from "../types";
+import { fetchLangs } from "./operations";
 
 export interface ILangsSlice {
 	languages: ILanguage[] | [];
@@ -26,8 +27,17 @@ const langsSlice = createSlice({
 		},
 	},
 	extraReducers(builder) {
-		//
-		//
+		builder
+			.addCase(fetchLangs.pending, (state) => {
+				state.status = "PENDING";
+			})
+			.addCase(fetchLangs.fulfilled, (state, action) => {
+				state.status = "FULFILLED";
+				state.languages = action.payload;
+			})
+			.addCase(fetchLangs.rejected, (state) => {
+				state.status = "REJECTED";
+			});
 	},
 });
 

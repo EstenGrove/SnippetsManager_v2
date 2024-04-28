@@ -24,7 +24,8 @@ const normalizeSnippetForServer = (dbSnippet: IDBSnippetRecord) => {
 };
 
 const normalizeSnippetsForServer = (dbSnippets: IDBSnippetRecord[]) => {
-	if (!dbSnippets || dbSnippets?.length <= 0) return [];
+	if (!dbSnippets || dbSnippets?.length <= 0 || !Array.isArray(dbSnippets))
+		return [];
 	const serverTags = dbSnippets.map((tagRecord) =>
 		normalizeSnippetForServer(tagRecord)
 	);
@@ -45,7 +46,7 @@ const normalizeSnippetCountForServer = (
 const normalizeSnippetCountsForServer = (
 	dbCount: IDBSnippetCount[]
 ): IServerSnippetCount[] => {
-	if (!dbCount || dbCount?.length <= 0) return [];
+	if (!dbCount || dbCount?.length <= 0 || !Array.isArray(dbCount)) return [];
 	const serverRecords = dbCount.map((dbRecord) =>
 		normalizeSnippetCountForServer(dbRecord)
 	);

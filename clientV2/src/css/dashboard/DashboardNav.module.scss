@@ -1,0 +1,33 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.DashboardNav {
+	width: auto;
+	margin-bottom: 2rem;
+
+	&_btn {
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+		border: none;
+		outline: none;
+		cursor: pointer;
+		background-color: transparent;
+		&:hover {
+			box-shadow: var(--main-outline);
+		}
+
+		&_back {
+			width: 2.2rem;
+			height: 2.2rem;
+			fill: var(--accent);
+		}
+	}
+}
+
+@media only screen and (max-width: 700px) {
+	.DashboardNav {
+		margin-left: 3rem;
+	}
+}

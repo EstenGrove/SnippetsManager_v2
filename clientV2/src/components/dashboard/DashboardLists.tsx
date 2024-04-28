@@ -1,15 +1,19 @@
-import { useMemo } from "react";
 import styles from "../../css/dashboard/DashboardLists.module.scss";
-import ListsPanel from "../lists/ListsPanel";
+import { useMemo } from "react";
+import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUserLists } from "../../features/lists/listsSlice";
 import { selectTags } from "../../features/tags/tagsSlice";
 import { selectFaves } from "../../features/favorites/favesSlice";
 import { selectCurrentUser } from "../../features/currentUser/currentUserSlice";
-import SnippetsPanel from "../snippets/SnippetsPanel";
 import { selectSnippetCounts } from "../../features/dashboard/dashboardSlice";
 import { ISnippetCounts } from "../../features/dashboard/types";
 import Editor from "../editor/Editor";
+import ListsPanel from "../lists/ListsPanel";
+import SnippetsPanel from "../snippets/SnippetsPanel";
+import ListsMainPanel from "../lists/ListsMainPanel";
+import DashboardNav from "./DashboardNav";
+import CurrentSnippetPanel from "../snippets/CurrentSnippetPanel";
 
 // CONSIDER MULTIPLE VIEW TYPES:
 // - List View: <ListsPanel/>
@@ -39,10 +43,36 @@ const DashboardLists = () => {
 				currentUser={currentUser}
 				snippetCounts={snippetCounts as ISnippetCounts}
 			/>
-			{/* SNIPPETS PANEL */}
-			<SnippetsPanel userLists={userLists} currentUser={currentUser} />
 
-			{/* <Editor /> */}
+			{/* MAIN CONTENT PANEL - SNIPPETS LIST OR CURRENT SNIPPET */}
+			<ListsMainPanel key="LISTS-MAIN-PANEL">
+				<DashboardNav />
+				<Routes>
+					<Route
+						index
+						path="/:listID"
+						element={
+							<SnippetsPanel
+								userLists={userLists}
+								currentUser={currentUser}
+								snippetCounts={snippetCounts as ISnippetCounts}
+							/>
+						}
+					/>
+					<Route
+						// path="/:listID/:snippetID"
+						path="/:listID/:snippetID"
+						element={
+							<CurrentSnippetPanel
+								userLists={userLists}
+								currentUser={currentUser}
+								snippetCounts={snippetCounts as ISnippetCounts}
+							/>
+						}
+					/>
+				</Routes>
+				{/* <Editor /> */}
+			</ListsMainPanel>
 		</div>
 	);
 };

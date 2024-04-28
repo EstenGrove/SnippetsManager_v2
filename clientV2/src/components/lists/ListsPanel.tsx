@@ -9,7 +9,7 @@ import PanelList from "../shared/PanelList";
 import { sortBoolAscByKey } from "../../utils/utils_misc";
 import { saveNewUserList, sortUserLists } from "../../utils/utils_lists";
 import ListItem from "./ListItem";
-import { useLocation, useMatch, useParams } from "react-router-dom";
+import { Params, useLocation, useMatch, useParams } from "react-router-dom";
 import { isFaveList } from "../../utils/utils_faves";
 import { useAppDispatch } from "../../store/store";
 import { toggleIsPinned } from "../../features/lists/listsSlice";
@@ -52,6 +52,14 @@ const getCountFromData = (listID: number, counts: ISnippetCounts) => {
 	}
 };
 
+// we have to do this, since we're using <SnippetsPanel/> as a child route index, not a direct descendant route
+const getListIDFromParams = (params: Readonly<Params<string>>): number => {
+	const target = params?.["*"];
+	const separated = target?.split("/");
+	const listID = separated?.[0];
+	return Number(listID);
+};
+
 const PanelToggle = ({ toggleSidebar, isCollapsed = false }: ToggleProps) => {
 	const closed = "rotateZ(0)";
 	const open = "rotateZ(-180deg)";
@@ -86,7 +94,8 @@ const ListsPanel = ({
 	const { width } = useWindowSize();
 	const winWidth = width as number;
 	const params = useParams();
-	const listID: number = Number(params?.["*"]) ?? -1;
+	const listID = getListIDFromParams(params);
+	// const listID: number = Number(params?.["*"]) ?? -1;
 	// Create new list states
 	const [newList, setNewList] = useState<string>("");
 	const [showNewListDialog, setShowNewListDialog] = useState<boolean>(false);

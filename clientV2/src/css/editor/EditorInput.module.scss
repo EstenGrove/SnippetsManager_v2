@@ -1,0 +1,26 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.EditorInput {
+	width: 100%;
+	min-width: 100%;
+	height: auto;
+	min-height: 40rem;
+	// border-radius: 1rem;
+
+	&_input {
+		width: 100%;
+		min-width: 100%;
+		min-height: 20rem;
+		min-height: 100vh;
+		padding: 1rem 1rem;
+		border-radius: 0 0 1rem;
+		font-family: "Dank Mono";
+		resize: vertical;
+		background-color: var(--bg-input);
+		color: var(--text-main);
+		border: none;
+		outline: none;
+	}
+}

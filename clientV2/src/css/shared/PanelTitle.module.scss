@@ -1,0 +1,30 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.PanelTitle {
+	width: auto;
+	@include flex_col(flex-start, flex-start);
+	margin-bottom: 2rem;
+
+	&_wrapper {
+		width: auto;
+		@include flex_row(flex-start, center);
+		&_count {
+			font-size: 2.2rem;
+			margin-left: 1rem;
+			color: var(--text-secondary);
+		}
+		&_title {
+			font-size: 2.2rem;
+			font-weight: 600;
+			color: var(--text-main);
+		}
+	}
+	&_meta {
+		display: block;
+		color: var(--text-secondary);
+		font-size: 1.4rem;
+		font-style: italic;
+	}
+}

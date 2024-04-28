@@ -1,3 +1,4 @@
+import { ISnippetCounts } from "../features/dashboard/types";
 import { fetchWithAuth } from "./utils_auth";
 import { currentEnv, snippets } from "./utils_env";
 
@@ -61,9 +62,20 @@ const formatSnippetCount = (counts: TCounts): TCountResults => {
 	return results as TCountResults;
 };
 
+// Returns the count of snippets, given a listID
+const getCountFromData = (listID: number, counts: ISnippetCounts): number => {
+	const entry = counts?.[listID];
+	if (entry) {
+		return entry?.count ?? 0;
+	} else {
+		return 0;
+	}
+};
+
 export {
 	getListSnippets,
 	getSnippetCounts,
 	// formatting
 	formatSnippetCount,
+	getCountFromData,
 };

@@ -11,6 +11,7 @@
 	transform: translate(-50%, -30%);
 	border-radius: 1rem;
 	background-color: var(--bg-input);
+	box-shadow: 0 0 0 50vmax rgba(0, 0, 0, 0.7);
 
 	&_top {
 		width: 100%;

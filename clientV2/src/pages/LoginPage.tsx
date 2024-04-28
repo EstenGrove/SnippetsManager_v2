@@ -39,7 +39,7 @@ const LoginPage = () => {
 	const [userCredentials, setUserCredentials] = useState<IUserCreds>({
 		username: "",
 		password: "",
-		rememberMe: false,
+		rememberMe: true,
 	});
 
 	const handleChange = (e: ChangeEvent<Element>) => {
