@@ -12,4 +12,17 @@ const addEllipsis = (str: string | null, maxLength: number = 60): string => {
 	return cutStr + "...";
 };
 
-export { truncateStr, addEllipsis };
+type TMappedList = Record<string, string>;
+
+const groupBy = (key: string, list: Record<string, any>[]) => {
+	return list.reduce((acc, item) => {
+		const mapKey = item[key];
+		if (!acc[mapKey]) {
+			acc[mapKey] = [];
+		}
+		acc[mapKey].push(item);
+		return acc;
+	}, {} as TMappedList);
+};
+
+export { truncateStr, addEllipsis, groupBy };

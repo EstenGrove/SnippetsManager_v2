@@ -1,5 +1,4 @@
 import {
-	Interval,
 	addHours,
 	differenceInHours,
 	differenceInMinutes,

@@ -32,26 +32,25 @@ const DashboardPage = () => {
 	const currentUser = useSelector(selectCurrentUser);
 	const currentAuth = useSelector(selectCurrentUserAuth);
 	const navigate = useNavigate();
-	const { sessionStatus } = useAuthSession({
+	const { authSession } = useAuthSession({
 		onSuccess: () => {
-			console.log("SUCCESS!!!");
-			// alert("Success!");
+			console.log("✅ AUTH WAS REFRESHED!!!");
 		},
 		onReject: () => {
-			console.log("FAILED!!!");
+			console.log("❌ AUTH REFRESHED FAILED!!!");
 			navigate("/login");
 		},
-		onExpiring: () =>
-			alert("Your session is about to end. Wanna stay logged in?"),
+		// onExpiring: () =>
+		// 	alert("Your session is about to end. Wanna stay logged in?"),
 	});
 	const wasTriggered = useHotKeys(["ctrl", "k"]);
 	// const wasTriggered = false;
 	const [showSearchCenter, setShowSearchCenter] = useState<boolean>(false);
 
 	const logoutSession = async () => {
-		const { sessionID } = sessionStatus;
-		const token = sessionStatus?.token;
-		const wasLoggedOut = await logout(sessionID as string, token as string);
+		const { sessionID, sessionToken } = authSession;
+
+		const wasLoggedOut = await logout(sessionID, sessionToken);
 		dispatch(logoutUser());
 		navigate("/login");
 		clearRememberMe();
@@ -65,7 +64,7 @@ const DashboardPage = () => {
 	};
 
 	// fetch: user lists, tags, etc
-	const getInitialResources = async () => {
+	const getInitialResources = useCallback(() => {
 		const { token } = currentAuth;
 		const { userID } = currentUser;
 		const args = { token, userID } as TUserThunkArgs;
@@ -73,7 +72,7 @@ const DashboardPage = () => {
 		dispatch(fetchUserLists(args));
 		dispatch(fetchUserTags(args));
 		dispatch(fetchSnippetCounts(args));
-	};
+	}, [currentAuth, currentUser, dispatch]);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -97,8 +96,7 @@ const DashboardPage = () => {
 		return () => {
 			isMounted = false;
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [getInitialResources]);
 
 	return (
 		<div className={styles.DashboardPage}>

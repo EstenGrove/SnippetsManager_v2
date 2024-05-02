@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import bcrypt from "bcrypt";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 
@@ -11,6 +11,7 @@ import {
 import {
 	IDBUserSession,
 	getUserByEmail,
+	getUserByUserID,
 	getUserByUsernameOrEmail,
 	recordUserSession,
 	registerNewUser,
@@ -48,9 +49,6 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
 		});
 		return res.status(400).json(failed);
 	}
-
-	console.log("username", username);
-	console.log("password", password);
 
 	try {
 		const existingUser = await getUserByUsernameOrEmail(username as string);
@@ -153,7 +151,6 @@ const registerUser = async (
 	console.log("email", email);
 	console.log("password", password);
 	console.groupEnd();
-	// return res.status(200).json({ Status: "SUCCESS" });
 
 	if (!username || !email || !password) {
 		// send message about required fields here...
@@ -262,6 +259,7 @@ const checkAuth = async (req: Request, res: Response, next: NextFunction) => {
 			process.env.JWT_SECRET as Secret
 		) as JwtPayload;
 		console.log("token", token);
+
 		if (tokenResults && !!tokenResults?.userID) {
 			return res.status(200).json({
 				Status: "SUCCESS",
@@ -289,11 +287,57 @@ const refreshAuthSession = async (
 	res: Response,
 	next: NextFunction
 ) => {
-	const userID = req.query?.userID;
-	const apiAuth = req.headers.authorization;
-	const token = req.headers.securitytoken;
+	const userID = req.query?.userID as string;
+	const apiAuth = req.headers.authorization as string;
+	const token = req.headers.securitytoken as string;
+	const userAgent = req.headers["user-agent"] as string;
 
-	// const
+	try {
+		const tokenResults = jwt.verify(
+			token as string,
+			process.env.JWT_SECRET as Secret
+		) as JwtPayload;
+
+		if (tokenResults && !!tokenResults?.userID) {
+			const user = await getUserByUserID(userID);
+			const sessionInfo = (await recordUserSession(
+				user.user_id,
+				token,
+				userAgent
+			)) as IDBUserSession;
+			const sessionExpiry = addHoursToDate(sessionInfo.login_date as string, 5);
+			const newToken = generateSecurityToken(userID);
+			const responseObj = new ResponseModel({
+				status: "SUCCESS",
+				msg: "Session was refreshed!",
+				data: {
+					User: {
+						UserID: user.user_id,
+						Username: user.username,
+						Email: user.email,
+						Token: newToken,
+					},
+					Session: {
+						UserID: user.user_id,
+						SessionID: sessionInfo.session_id,
+						Token: newToken,
+						SessionStart: sessionInfo.login_date,
+						SessionExpiry: sessionExpiry,
+						IsActive: sessionInfo.is_active,
+					},
+				},
+			});
+			return res.status(200).json(responseObj);
+		}
+		return res.status(400).json({ Status: "FAILED", Message: "Un-authorized" });
+	} catch (error) {
+		console.log("error", error);
+		return res.status(400).json({ Status: "FAILED", Message: "Un-authorized" });
+	}
+	// check if user is valid/exists by userID
+	// check if token is valid
+	// generate a fresh token
+	// generate a fresh session
 };
 
 app.use("/", loginUser);

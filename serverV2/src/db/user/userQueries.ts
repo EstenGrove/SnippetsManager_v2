@@ -2,6 +2,19 @@ import { QueryResult } from "pg";
 import pool from "../db";
 import { IUserDBRecord } from "../../models/user/types";
 
+const getUserByUserID = async (userID: string) => {
+	const query = `SELECT * FROM users WHERE user_id = $1`;
+	try {
+		const results = await pool.query(query, [userID]);
+		const rows = results?.rows ?? [];
+		console.log("ROWS", rows);
+		return rows?.[0];
+	} catch (error) {
+		console.log("Error(During query):", error);
+		return error;
+	}
+};
+
 const getUserByEmail = async (email: string) => {
 	const query = `SELECT * FROM users WHERE email = $1`;
 	try {
@@ -93,6 +106,7 @@ const updateUserSession = async (
 };
 
 export {
+	getUserByUserID,
 	getUserByEmail,
 	getUserByUsernameOrEmail,
 	registerNewUser,

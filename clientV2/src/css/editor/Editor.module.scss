@@ -5,6 +5,7 @@
 .Editor {
 	width: 100%;
 	height: auto;
+	border-radius: 1rem;
 
 	&_toolbar {
 		width: 100%;
@@ -14,5 +15,6 @@
 	&_code {
 		width: 100%;
 		height: auto;
+		border-radius: 1rem;
 	}
 }

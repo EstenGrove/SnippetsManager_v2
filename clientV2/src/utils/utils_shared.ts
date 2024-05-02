@@ -6,13 +6,15 @@ import { IServerTag, ITag } from "../features/tags/types";
 
 export type TResponseStatus = "SUCCESS" | "FAILED";
 
-export type TResponseData = {
+export type TResponseUnknown = {
 	[key: string]: unknown;
 };
 
+export type TResponseData<T> = T | TResponseUnknown;
+
 export interface IResponse {
 	Status: TResponseStatus;
-	Data: TResponseData;
+	Data: TResponseUnknown;
 	Message: string;
 	Results: string;
 	ErrorMessage: string;

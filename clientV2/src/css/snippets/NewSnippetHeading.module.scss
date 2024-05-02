@@ -1,0 +1,33 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.NewSnippetHeading {
+	width: 100%;
+	padding: 2rem 2rem;
+
+	&_title {
+		width: 80%;
+		max-width: 100%;
+		margin-bottom: 2rem;
+	}
+	&_origin {
+		width: 60%;
+		max-width: 100%;
+		margin-bottom: 2rem;
+	}
+}
+
+@media only screen and (max-width: 1000px) {
+	.NewSnippetHeading {
+		width: 100%;
+		padding: 2rem 1rem;
+
+		&_title {
+			width: 100%;
+		}
+		&_origin {
+			width: 100%;
+		}
+	}
+}

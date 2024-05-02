@@ -1,6 +1,8 @@
+import { IAuthSession, TAuthSessionCacheKey } from "../shared/AuthTypes";
+import { defaultAuth, getAuthFromCache } from "./utils_cache";
 import { hoursToSecs } from "./utils_dates";
 import { auth, currentEnv } from "./utils_env";
-import { IResponse } from "./utils_shared";
+import { IResponse, TResponseData } from "./utils_shared";
 
 export type TFetchOptions = {
 	method?: "POST" | "GET" | "PUT" | "DELETE";
@@ -32,7 +34,10 @@ const fetchWithAuth = async (url: string, options?: TFetchOptions) => {
 	});
 };
 
-const login = async (username: string, password: string) => {
+const login = async (
+	username: string,
+	password: string
+): Promise<IResponse | unknown> => {
 	let url = currentEnv.base + auth.login;
 	url += "?" + new URLSearchParams({ username });
 	url += "&password=" + encodeURIComponent(password);
@@ -42,7 +47,7 @@ const login = async (username: string, password: string) => {
 			method: "POST",
 		});
 		const response = await request.json();
-		return response;
+		return response as Promise<IResponse>;
 	} catch (error) {
 		return error;
 	}
@@ -80,25 +85,20 @@ const checkAuthSession = async (userID: string, token: string) => {
 	}
 };
 //
-export type IAuthResponse = {
-	UserID: string;
-	Status: "SUCCESS" | "FAILED";
-	IsValid: boolean;
-	Token?: string;
-};
+
 // checks is auth session is valid & returns a refreshed auth token & session details
 const refreshAuthSession = async (
 	userID: string,
 	token: string
-): Promise<IAuthResponse | unknown> => {
-	let url = currentEnv.base + auth.checkAuth;
+): Promise<IResponse | unknown> => {
+	let url = currentEnv.base + auth.refreshAuth;
 	url += "?" + new URLSearchParams({ userID });
 	try {
 		const request = await fetchWithAuth(url, {
 			token: token,
 		});
 		const response = await request.json();
-
+		console.log("RefreshAuth", response);
 		return response;
 	} catch (error: unknown) {
 		return error;
@@ -107,48 +107,8 @@ const refreshAuthSession = async (
 
 // AUTH UTILS
 
-export type TAuthSessionCacheKey = "iasc";
-
-export interface IAuthSession {
-	userID: string | null; // guid
-	sessionID: string | null; // guid
-	sessionStart: string | null; // start date
-	sessionExpiry: string | null; // expiry/end date
-	sessionLength: number | null; // session length in hours
-	sessionToken: string | null; // security token
-	lastRefreshedAt: string | null;
-}
-
-export interface IAuthSessionCache {
-	uid: string; // User ID
-	s_id: string; // Session ID
-	s_start: string; // Session Start time
-	s_expiry: string; // Session Expiry time (eg. end time)
-	s_token: string; // Session Token
-	s_length: string; // Session Length (in hours)
-	s_lastRefresh: string; // Time cache was last refreshed
-}
-
-export interface IAuthSessionCacheMap {
-	uid: "userID"; // User ID
-	s_id: "sessionID"; // Session ID
-	s_start: "sessionStart"; // Session Start time
-	s_expiry: "sessionExpiry"; // Session Expiry time (eg. end time)
-	s_token: "sessionToken"; // Session Token
-	s_length: "sessionLength"; // Session Length (in hours)
-}
-
 // unique key used as 'key' value for storing in localStorage/sessionStorage etc
 export const AUTH_SESSION_CACHE_KEY: TAuthSessionCacheKey = "iasc";
-
-export const SESSION_CACHE_MAP: IAuthSessionCacheMap = {
-	uid: "userID", // User ID
-	s_id: "sessionID", // Session ID
-	s_start: "sessionStart", // Session Start time
-	s_expiry: "sessionExpiry", // Session Expiry time (eg. end time)
-	s_token: "sessionToken", // Session Token
-	s_length: "sessionLength", // Session Length (in hours)
-};
 
 /**
  * Accepts an IAuthSession object, serializes it & sets it to localStorage
@@ -165,14 +125,14 @@ const setRememberMe = (authSession: IAuthSession): void => {
 		lastRefreshedAt,
 	} = authSession;
 
-	const authCache: IAuthSessionCache = {
-		uid: userID as string,
-		s_id: sessionID as string,
-		s_start: sessionStart as string,
-		s_expiry: sessionExpiry as string,
-		s_token: sessionToken as string,
-		s_length: sessionLength?.toString() as string,
-		s_lastRefresh: lastRefreshedAt as string,
+	const authCache = {
+		userID,
+		sessionID,
+		sessionStart,
+		sessionExpiry,
+		sessionLength,
+		sessionToken,
+		lastRefreshedAt,
 	};
 	const key = AUTH_SESSION_CACHE_KEY;
 	const serial = JSON.stringify(authCache);
@@ -185,32 +145,10 @@ const setRememberMe = (authSession: IAuthSession): void => {
  * @returns {IAuthSession} - Returns the current 'IAuthSession' instance, if exists
  */
 const getRememberMe = (): IAuthSession => {
-	const item = localStorage.getItem("iasc");
-	if (item) {
-		const sessionCache = JSON.parse(item);
-		const authSession = {
-			userID: sessionCache["uid"],
-			sessionID: sessionCache["s_id"],
-			sessionStart: sessionCache["s_start"],
-			sessionExpiry: sessionCache["s_expiry"],
-			sessionToken: sessionCache["s_token"],
-			sessionLength: sessionCache["s_length"],
-			lastRefreshedAt: sessionCache["s_lastRefresh"],
-		};
-		return authSession;
-	} else {
-		return {
-			userID: null,
-			sessionID: null,
-			sessionStart: null,
-			sessionExpiry: null,
-			sessionToken: null,
-			sessionLength: null,
-			lastRefreshedAt: null,
-		};
-	}
+	const authCache: IAuthSession = getAuthFromCache(AUTH_SESSION_CACHE_KEY);
+	return authCache;
 };
-const clearRememberMe = () => {
+const clearRememberMe = (): void => {
 	localStorage.removeItem(AUTH_SESSION_CACHE_KEY);
 };
 
@@ -252,6 +190,7 @@ export {
 	checkAuthSession,
 	refreshAuthSession,
 	// 'Remember Me' Session Cache Utils
+	getAuthFromCache,
 	setRememberMe,
 	getRememberMe,
 	clearRememberMe,

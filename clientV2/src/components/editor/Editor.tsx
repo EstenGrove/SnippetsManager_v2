@@ -1,21 +1,18 @@
-import React, { useCallback, useRef, useState } from "react";
+import { RefObject } from "react";
 import styles from "../../css/editor/Editor.module.scss";
 import EditorInput from "./EditInput";
 import EditorToolbar from "./EditorToolbar";
 
-type Props = {};
+type Props = {
+	editorRef: RefObject<HTMLTextAreaElement>;
+	handleLang: (lang: string) => void;
+};
 
-const Editor = ({}: Props) => {
-	const editorRef = useRef<HTMLTextAreaElement>(null);
-
-	const tabHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-		//
-		//
-	};
+const Editor = ({ editorRef, handleLang }: Props) => {
 	return (
 		<div className={styles.Editor}>
 			<div className={styles.Editor_toolbar}>
-				<EditorToolbar />
+				<EditorToolbar handleLang={handleLang} />
 			</div>
 			<div className={styles.Editor_code}>
 				<EditorInput inputRef={editorRef} />

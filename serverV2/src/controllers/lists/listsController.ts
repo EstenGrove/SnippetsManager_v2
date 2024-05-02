@@ -19,6 +19,12 @@ const getUserLists = async (
 	next: NextFunction
 ) => {
 	const { userID } = req.query;
+	if (!userID)
+		return res.status(400).json({
+			Status: "FAILED",
+			Message: "UserID is required",
+		});
+
 	const rawLists = (await getAllListsByUser(userID as string)) as IQueryRows;
 	const count = rawLists?.length ?? 0;
 	const userLists: IServerUserListRecord[] =
@@ -47,13 +53,14 @@ const saveNewUserList = async (
 	const list = req.body as IClientListRecord;
 	const userID = req.query.userID as string;
 	const results = (await createNewUserList(userID, list)) as IQueryRows;
-	const rowCount = results?.length ?? 0;
+	const normal = normalizeUserListsForServer(results);
+	const rowCount = normal?.length ?? 0;
 	console.log("results(controller): ", results);
 
 	const responseObj = new ResponseModel({
 		status: "SUCCESS",
 		data: {
-			Lists: results,
+			Lists: normal,
 		},
 		msg: `Inserted 1 new user list`,
 		results: rowCount,

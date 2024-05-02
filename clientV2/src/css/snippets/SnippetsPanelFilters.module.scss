@@ -19,3 +19,10 @@
 		}
 	}
 }
+
+@media only screen and (max-width: 1000px) {
+	.SnippetsPanelFilters {
+		padding: 0 1.5rem;
+		justify-self: flex-start;
+	}
+}

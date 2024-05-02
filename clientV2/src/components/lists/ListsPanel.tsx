@@ -1,22 +1,23 @@
-import React, { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import styles from "../../css/lists/ListsPanel.module.scss";
 import sprite from "../../assets/icons/all.svg";
+import { Params, useParams } from "react-router-dom";
+import { useAppDispatch } from "../../store/store";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import { IList, IUserList } from "../../features/lists/types";
 import { ITag } from "../../features/tags/types";
-import ListsPanelHeading from "./ListsPanelHeading";
-import PanelList from "../shared/PanelList";
-import { sortBoolAscByKey } from "../../utils/utils_misc";
-import { saveNewUserList, sortUserLists } from "../../utils/utils_lists";
-import ListItem from "./ListItem";
-import { Params, useLocation, useMatch, useParams } from "react-router-dom";
 import { isFaveList } from "../../utils/utils_faves";
-import { useAppDispatch } from "../../store/store";
-import { toggleIsPinned } from "../../features/lists/listsSlice";
-import MobileListsPanel from "./MobileListsPanel";
-import NewListDialog from "./NewListDialog";
 import { ICurrentUser } from "../../features/currentUser/types";
 import { ISnippetCounts } from "../../features/dashboard/types";
+import { toggleIsPinned } from "../../features/lists/listsSlice";
+import { saveNewUserList, sortUserLists } from "../../utils/utils_lists";
+// components
+import ListsPanelHeading from "./ListsPanelHeading";
+import PanelList from "../shared/PanelList";
+import ListItem from "./ListItem";
+import MobileListsPanel from "./MobileListsPanel";
+import NewListDialog from "./NewListDialog";
+import { createNewUserList } from "../../features/lists/operations";
 
 type Props = {
 	userLists: IUserList[] | [];
@@ -163,11 +164,20 @@ const ListsPanel = ({
 			updatedBy: null,
 			isActive: true,
 		};
-		const wasSaved = await saveNewUserList(
-			token as string,
-			userID as string,
-			newListItem as IList
+		// const wasSaved = await saveNewUserList(
+		// 	token as string,
+		// 	userID as string,
+		// 	newListItem as IList
+		// );
+		// console.log("wasSaved", wasSaved);
+		dispatch(
+			createNewUserList({
+				token: token as string,
+				userID: userID as string,
+				newList: newListItem as IList,
+			})
 		);
+		closeNewListDialog();
 	};
 
 	console.log("searchVal", searchVal);

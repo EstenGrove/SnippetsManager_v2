@@ -73,11 +73,13 @@ const EditorInput = ({ inputRef }: Props) => {
 			const start = input.selectionStart;
 			const end = input.selectionEnd;
 			const cleanPaste = formatPastedText(pasteContent);
-			// input.value = originText + cleanPaste;
 			input.value =
 				input.value.substring(0, start) +
 				cleanPaste +
 				input.value.substring(end);
+
+			// auto-resize input to fit pasted text
+			input.style.height = input.scrollHeight + "px";
 		}
 	};
 

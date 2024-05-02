@@ -8,6 +8,12 @@
 	margin-bottom: 2rem;
 	padding: 0 3rem;
 
+	&_heading {
+		width: 100%;
+		height: auto;
+		@include flex_row(space-between, baseline, wrap);
+	}
+
 	&_search {
 		width: 90%;
 		min-width: 45rem;
@@ -17,6 +23,11 @@
 
 @media only screen and (max-width: 900px) {
 	.SnippetsPanelHeading {
+		padding: 0 1.5rem;
+
+		&_heading {
+			margin-bottom: 2rem;
+		}
 		&_search {
 			min-width: 100%;
 			width: 100%;

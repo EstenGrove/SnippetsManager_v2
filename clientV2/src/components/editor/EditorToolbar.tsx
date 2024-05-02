@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import styles from "../../css/editor/EditorToolbar.module.scss";
 import Selector from "../shared/Selector";
 
-type Props = {};
+type Props = {
+	handleLang: (lang: string) => void;
+};
 
 // REQUIREMENTS:
 // - <details></details> block button
@@ -11,18 +13,13 @@ type Props = {};
 // - Lists
 // - Divider
 
-const EditorToolbar = ({}: Props) => {
-	const [selectedLang, setSelectedLang] = useState<string>("tsx");
-
-	const handleLang = (selection: string) => {
-		setSelectedLang(selectedLang);
-	};
-
+const EditorToolbar = ({ handleLang }: Props) => {
 	return (
 		<div className={styles.EditorToolbar}>
 			{/*  */}
 			{/*  */}
 			<div className={styles.EditorToolbar_tags}>
+				{/*  */}
 				{/*  */}
 				{/*  */}
 			</div>

@@ -42,8 +42,6 @@ const SnippetsContentPanel = ({
 		setRelativeDateRange(option);
 	};
 
-	console.log("snippets", snippets);
-
 	return (
 		<div className={styles.SnippetsContentPanel}>
 			<SnippetsPanelHeading

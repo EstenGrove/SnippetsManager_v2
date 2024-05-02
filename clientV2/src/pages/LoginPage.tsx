@@ -4,9 +4,15 @@ import LoginForm from "../components/login/LoginForm";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../store/store";
 import { IUserAuth, loginUser } from "../features/currentUser/currentUserSlice";
-import { login, setRememberMe } from "../utils/utils_auth";
+import { IAuthResponse, login, setRememberMe } from "../utils/utils_auth";
 import Dialog, { IDialog } from "../components/shared/Dialog";
 import Button from "../components/shared/Button";
+import { IResponse, TResponseData } from "../utils/utils_shared";
+import {
+	TResponse,
+	TResponseError,
+	TResponseFailure,
+} from "../shared/ResponseTypes";
 
 interface IUserCreds {
 	username: string;
@@ -62,14 +68,18 @@ const LoginPage = () => {
 		const { username, password } = userCredentials;
 		setIsSubmitting(true);
 		// fire off request
-		const results = await login(username, password);
+		const results = (await login(
+			username,
+			password
+		)) as TResponse<IAuthResponse>;
+		// IAuthResponse | TResponseFailure
 
 		// if failed, open dialog box
 		if (!results || results.Status !== "SUCCESS") {
 			return setDialog({
 				show: true,
-				title: results?.Data?.Title,
-				msg: results?.Data?.Msg,
+				title: results?.Data?.Title as string,
+				msg: results?.Data?.Msg as string,
 			});
 		} else {
 			const { Session, User } = results.Data;
@@ -90,6 +100,8 @@ const LoginPage = () => {
 			if (userCredentials?.rememberMe) {
 				setRememberMe({
 					userID: User.UserID,
+					username: User.Username,
+					email: User.email,
 					sessionID: Session.SessionID,
 					sessionExpiry: Session.SessionExpiry,
 					sessionStart: Session.Start,

@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useMemo, useState, ChangeEvent } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import styles from "../../css/snippets/SnippetsPanel.module.scss";
 import { useAppDispatch } from "../../store/store";
 import { Route, Routes, useParams } from "react-router-dom";
@@ -9,7 +9,6 @@ import { ICurrentUser } from "../../features/currentUser/types";
 import { IUserList } from "../../features/lists/types";
 import { ISnippetCounts } from "../../features/dashboard/types";
 // components
-import DashboardNav from "../dashboard/DashboardNav";
 import SnippetsContentPanel from "./SnippetsContentPanel";
 
 type Props = {
@@ -61,7 +60,6 @@ const SnippetsPanel = ({ userLists, currentUser, snippetCounts }: Props) => {
 	}
 	return (
 		<div className={styles.SnippetsPanel}>
-			{/* <DashboardNav /> */}
 			<Routes>
 				<Route
 					path="*"

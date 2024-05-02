@@ -1,20 +1,21 @@
+import { ILanguage } from "../features/languages/types";
 import { fetchWithAuth } from "./utils_auth";
 import { currentEnv, langs } from "./utils_env";
 
-const fetchAllLanguages = async () => {
+const fetchAllLanguages = async (token: string) => {
 	const url = currentEnv.base + langs.getAll;
 
 	try {
-		const req = await fetchWithAuth(url);
-		const res = await req.json();
-		return res;
+		const request = await fetchWithAuth(url, { token });
+		const response = await request.json();
+		return response;
 	} catch (error) {
 		console.log(error);
 		return error;
 	}
 };
 
-export const langRecords = [
+const langRecords = [
 	{
 		LanguageID: 1,
 		Name: "HTML",
@@ -157,4 +158,24 @@ export const langRecords = [
 	},
 ];
 
-export { fetchAllLanguages };
+// MATCHING UTILS
+
+const getLangIDFromName = (name: string, langs: ILanguage[]) => {
+	if (!name) return 0;
+	const langRecord = langs.find((lang) => lang.name === name);
+	return langRecord?.languageID;
+};
+const getLangNameFromID = (id: number, langs: ILanguage[]) => {
+	if (!id) return 0;
+	const langRecord = langs.find((lang) => lang.languageID === id);
+	return langRecord?.languageID;
+};
+
+export {
+	fetchAllLanguages,
+	// LANG RECORDS
+	langRecords,
+	// Matching Utils
+	getLangIDFromName,
+	getLangNameFromID,
+};

@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import { IUserList } from "../../features/lists/types";
 import { addEllipsis } from "../../utils/utils_processing";
 import { isUncategorized } from "../../utils/utils_lists";
+import { useAppDispatch } from "../../store/store";
+import { setCurrentList } from "../../features/lists/listsSlice";
 
 type Props = {
 	list: IUserList;
@@ -54,6 +56,17 @@ const ListItem = ({
 	snippetCount = 0,
 }: Props) => {
 	const { listID, listName, isPinned } = list;
+	const dispatch = useAppDispatch();
+
+	// sets the 'currentList' to state
+	const selectList = () => {
+		dispatch(
+			setCurrentList({
+				list: list,
+				snippets: [],
+			})
+		);
+	};
 
 	return (
 		<div
@@ -61,6 +74,7 @@ const ListItem = ({
 			className={
 				isSelected ? `${styles.ListItem} ${styles.isSelected}` : styles.ListItem
 			}
+			onClick={selectList}
 		>
 			<PinIcon togglePin={toggleIsPinned} isPinned={isPinned} />
 			<NavLink to={`${listID}`} className={styles.ListItem_link}>

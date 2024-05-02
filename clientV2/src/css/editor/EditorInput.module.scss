@@ -7,16 +7,17 @@
 	min-width: 100%;
 	height: auto;
 	min-height: 40rem;
-	// border-radius: 1rem;
+	border-radius: 1rem;
 
 	&_input {
 		width: 100%;
 		min-width: 100%;
 		min-height: 20rem;
-		min-height: 100vh;
+		height: auto;
 		padding: 1rem 1rem;
-		border-radius: 0 0 1rem;
-		font-family: "Dank Mono";
+		border-radius: 1rem;
+		font-family: "Dank Mono", "Consolas", monospace;
+		line-height: 2rem;
 		resize: vertical;
 		background-color: var(--bg-input);
 		color: var(--text-main);

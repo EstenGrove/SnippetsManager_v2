@@ -1,4 +1,5 @@
 import { ISnippetCounts } from "../features/dashboard/types";
+import { ISnippet } from "../features/snippets/types";
 import { fetchWithAuth } from "./utils_auth";
 import { currentEnv, snippets } from "./utils_env";
 
@@ -29,6 +30,23 @@ const getSnippetCounts = async (token: string, userID: string) => {
 	try {
 		const request = await fetchWithAuth(url, {
 			token: token,
+		});
+		const response = await request.json();
+		return response;
+	} catch (error) {
+		console.log("error", error);
+		return error;
+	}
+};
+
+const saveNewSnippet = async (token: string, snippet: ISnippet) => {
+	const url: string = currentEnv.base + snippets.saveNew;
+
+	try {
+		const request = await fetchWithAuth(url, {
+			method: "POST",
+			token: token,
+			body: snippet,
 		});
 		const response = await request.json();
 		return response;
@@ -75,6 +93,7 @@ const getCountFromData = (listID: number, counts: ISnippetCounts): number => {
 export {
 	getListSnippets,
 	getSnippetCounts,
+	saveNewSnippet,
 	// formatting
 	formatSnippetCount,
 	getCountFromData,

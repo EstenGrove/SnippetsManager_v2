@@ -1,34 +1,16 @@
-import React, { useState } from "react";
+import { RefObject } from "react";
 import styles from "../../css/editor/EditorPanel.module.scss";
-import { ISnippet } from "../../features/snippets/types";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../../features/currentUser/currentUserSlice";
+import Editor from "./Editor";
 
-type Props = {};
+type Props = {
+	editorRef: RefObject<HTMLTextAreaElement>;
+	handleLang: (lang: string) => void;
+};
 
-const EditorPanel = ({}: Props) => {
-	const currentUser = useSelector(selectCurrentUser);
-	// new snippet states
-	const [lang, setLang] = useState<string>("tsx");
-	const [newSnippet, setNewSnippet] = useState<ISnippet>({
-		snippetID: 0,
-		languageID: 0,
-		snippetName: "",
-		snippetDesc: "",
-		snippetCode: "",
-		snippetOrigin: "",
-		isFave: false,
-		isActive: true,
-		createdDate: new Date().toISOString(),
-		updatedDate: null,
-		createdBy: currentUser?.userID ?? null,
-		updatedBy: null,
-	});
+const EditorPanel = ({ editorRef, handleLang }: Props) => {
 	return (
 		<div className={styles.EditorPanel}>
-			{/* HEADER */}
-			{/* EDITOR */}
-			{/* ACTIONS */}
+			<Editor editorRef={editorRef} handleLang={handleLang} />
 		</div>
 	);
 };

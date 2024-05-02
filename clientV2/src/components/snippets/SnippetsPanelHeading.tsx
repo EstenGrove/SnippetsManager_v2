@@ -2,6 +2,8 @@ import { ChangeEvent } from "react";
 import styles from "../../css/snippets/SnippetsPanelHeading.module.scss";
 import SearchInput from "../shared/SearchInput";
 import PanelTitle from "../shared/PanelTitle";
+import Button from "../shared/Button";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
 	title: string;
@@ -18,13 +20,22 @@ const SnippetsPanelHeading = ({
 	handleSearch,
 	numOfSnippets = 0,
 }: Props) => {
+	const navigate = useNavigate();
+
+	const initNewSnippet = () => {
+		navigate("new-snippet");
+	};
+
 	return (
 		<div className={styles.SnippetsPanelHeading}>
-			<PanelTitle
-				title={title}
-				createdDate={createdDate}
-				snippetsCount={numOfSnippets}
-			/>
+			<div className={styles.SnippetsPanelHeading_heading}>
+				<PanelTitle
+					title={`List: ${title}`}
+					createdDate={createdDate}
+					snippetsCount={numOfSnippets}
+				/>
+				<Button handleClick={initNewSnippet}>New Snippet</Button>
+			</div>
 			<div className={styles.SnippetsPanelHeading_search}>
 				<SearchInput
 					name="searchListSnippets"
