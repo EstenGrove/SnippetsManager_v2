@@ -6,23 +6,32 @@
 	width: 100%;
 	height: auto;
 	margin-bottom: 2rem;
+	padding: 0 3rem;
 
-	&_addNewBtn {
-		width: 90%;
-		display: block;
-		margin: 0 auto;
+	&_heading {
+		width: 100%;
 		height: auto;
-		border: none;
-		outline: none;
-		// background-color: var(--accent);
-		// color: #fff;
-		background-color: transparent;
-		border: 2px solid var(--accent);
-		color: var(--accent);
-		padding: 0.7rem 1rem;
-		border-radius: 1rem;
-		font-size: 1.5rem;
-		margin-top: 2rem;
-		cursor: pointer;
+		@include flex_row(space-between, baseline, wrap);
+	}
+
+	&_search {
+		width: 90%;
+		min-width: 45rem;
+		max-width: 70rem;
+	}
+}
+
+@media only screen and (max-width: 900px) {
+	.SnippetsPanelHeading {
+		padding: 0 1.5rem;
+
+		&_heading {
+			margin-bottom: 2rem;
+		}
+		&_search {
+			min-width: 100%;
+			width: 100%;
+			max-width: 100%;
+		}
 	}
 }

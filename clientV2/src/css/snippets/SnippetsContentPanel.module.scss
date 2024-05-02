@@ -1,0 +1,8 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.SnippetsContentPanel {
+	@include fill_container;
+	overflow: hidden;
+}

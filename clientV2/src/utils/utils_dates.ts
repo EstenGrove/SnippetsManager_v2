@@ -1,5 +1,4 @@
 import {
-	Interval,
 	addHours,
 	differenceInHours,
 	differenceInMinutes,
@@ -18,6 +17,7 @@ import {
 export type TDateFormats = {
 	long: string;
 	short: string;
+	extraShort: string;
 	longDashes: string;
 	shortDashes: string;
 };
@@ -29,6 +29,7 @@ export type TTimeFormats = {
 export type TDateTimeFormats = {
 	long: string;
 	short: string;
+	extraShortAndLong: string;
 	longAndShort: string;
 	shortAndLong: string;
 };
@@ -37,6 +38,7 @@ export type TDateTimeFormats = {
 const DATE_FORMATS: TDateFormats = {
 	long: "MM/dd/yyyy",
 	short: "MM/dd/yy",
+	extraShort: "M/d/yyyy",
 	// w/ dashes instead of slashes
 	longDashes: "MM-dd-yyyy",
 	shortDashes: "MM-dd-yy",
@@ -51,6 +53,7 @@ const TIME_FORMATS: TTimeFormats = {
 const DATETIME_TOKENS: TDateTimeFormats = {
 	long: `${DATE_FORMATS.long} ${TIME_FORMATS.long}`,
 	short: `${DATE_FORMATS.short} ${TIME_FORMATS.short}`,
+	extraShortAndLong: `${DATE_FORMATS.extraShort} ${TIME_FORMATS.long}`,
 	longAndShort: `${DATE_FORMATS.long} ${TIME_FORMATS.short}`,
 	shortAndLong: `${DATE_FORMATS.short} ${TIME_FORMATS.long}`,
 };
@@ -74,7 +77,7 @@ const formatTime = (time: Date | string, formatToken: string = "long") => {
 // formats both date & time
 const formatDateTime = (
 	datetime: Date | string,
-	formatToken: string = "long"
+	formatToken: keyof TDateTimeFormats = "long"
 ) => {
 	const base: Date = new Date(datetime);
 	const target: string = DATETIME_TOKENS[formatToken as keyof TDateTimeFormats];

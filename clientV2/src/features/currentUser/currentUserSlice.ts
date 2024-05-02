@@ -91,6 +91,15 @@ const currentUserSlice = createSlice({
 			// reset state
 			return initialState;
 		},
+		refreshUser: (state, action: PayloadAction<IUserAuth>) => {
+			// replace 'currentUser.auth' w/ incoming payload
+			state.auth = action.payload;
+			// update 'currentUser.user' states w/ incoming payload
+			state.user.userID = action.payload.userID;
+			state.user.username = action.payload.username;
+			state.user.email = action.payload.email;
+			state.user.token = action.payload.token;
+		},
 	},
 	extraReducers(builder) {
 		builder
@@ -122,7 +131,12 @@ export const selectCurrentUserSlice = (state: RootState): ICurrentUserSlice => {
 	return state.currentUser;
 };
 
-export const { changePassword, setCurrentUser, loginUser, logoutUser } =
-	currentUserSlice.actions;
+export const {
+	changePassword,
+	setCurrentUser,
+	loginUser,
+	logoutUser,
+	refreshUser,
+} = currentUserSlice.actions;
 
 export default currentUserSlice.reducer;

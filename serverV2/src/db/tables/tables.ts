@@ -4,7 +4,8 @@ export type TTableAlias =
 	| "tags"
 	| "user_tags"
 	| "snippets"
-	| "user_snippets";
+	| "user_snippets"
+	| "languages";
 
 export type IColumnAlias = {
 	[key: string]: string;
@@ -82,6 +83,18 @@ const COLUMN_ALIASES: IColumnAliases = {
 		id: "user_snippet_id",
 		snippetID: "snippet_id",
 		userID: "user_id",
+		createdDate: "created_date",
+		updatedDate: "updated_date",
+		createdBy: "created_by",
+		updatedBy: "updated_by",
+		isActive: "is_active",
+	},
+	languages: {
+		id: "language_id",
+		name: "language_name",
+		desc: "language_desc",
+		ext: "language_extension",
+		alias: "language_alias",
 		createdDate: "created_date",
 		updatedDate: "updated_date",
 		createdBy: "created_by",

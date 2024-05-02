@@ -6,7 +6,7 @@ type Props = {
 	name: string;
 	val: string | null;
 	label?: string;
-	handleChange?: (e: ChangeEvent) => void;
+	handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 	isDisabled?: boolean;
 	isInvalid?: boolean;
 	isReadOnly?: boolean;

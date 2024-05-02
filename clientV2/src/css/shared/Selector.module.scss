@@ -20,6 +20,9 @@
 		&:hover {
 			cursor: pointer;
 		}
+		& span {
+			font-size: 1.4rem;
+		}
 
 		&_icon {
 			width: 1.5rem;
@@ -27,6 +30,14 @@
 			fill: var(--icon-color);
 		}
 	}
+}
+
+[data-placeholder="true"] {
+	color: var(--blueGrey700);
+	// opacity:
+}
+[data-placeholder="false"] {
+	color: var(--text-main);
 }
 
 .SelectorOptions {

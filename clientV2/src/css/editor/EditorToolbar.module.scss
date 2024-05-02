@@ -1,0 +1,15 @@
+@import "../../sass/variables";
+@import "../../sass/mixins";
+@import "../../sass/custom";
+
+.EditorToolbar {
+	@include fill_container;
+	padding: 6rem 0.5rem;
+	@include flex_row(flex-start, center);
+
+	&_selector {
+		width: 20rem;
+		height: 100%;
+		margin-left: auto;
+	}
+}

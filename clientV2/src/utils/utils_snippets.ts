@@ -1,3 +1,5 @@
+import { ISnippetCounts } from "../features/dashboard/types";
+import { ISnippet } from "../features/snippets/types";
 import { fetchWithAuth } from "./utils_auth";
 import { currentEnv, snippets } from "./utils_env";
 
@@ -37,6 +39,23 @@ const getSnippetCounts = async (token: string, userID: string) => {
 	}
 };
 
+const saveNewSnippet = async (token: string, snippet: ISnippet) => {
+	const url: string = currentEnv.base + snippets.saveNew;
+
+	try {
+		const request = await fetchWithAuth(url, {
+			method: "POST",
+			token: token,
+			body: snippet,
+		});
+		const response = await request.json();
+		return response;
+	} catch (error) {
+		console.log("error", error);
+		return error;
+	}
+};
+
 // PROCESSING SNIPPET-RELATED DATA //
 
 type TCounts = {
@@ -61,9 +80,21 @@ const formatSnippetCount = (counts: TCounts): TCountResults => {
 	return results as TCountResults;
 };
 
+// Returns the count of snippets, given a listID
+const getCountFromData = (listID: number, counts: ISnippetCounts): number => {
+	const entry = counts?.[listID];
+	if (entry) {
+		return entry?.count ?? 0;
+	} else {
+		return 0;
+	}
+};
+
 export {
 	getListSnippets,
 	getSnippetCounts,
+	saveNewSnippet,
 	// formatting
 	formatSnippetCount,
+	getCountFromData,
 };

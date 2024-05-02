@@ -29,7 +29,8 @@ const createNewUserList = createAsyncThunk(
 	"lists/createNewUserList",
 	async ({ token, userID, newList }: IListThunkArgs) => {
 		const data = (await saveNewUserList(token, userID, newList)) as IResponse;
-		const rawList = data?.Data?.NewList as IServerUserList;
+		const lists = data?.Data?.Lists as IServerUserList[];
+		const rawList = lists?.[0] as IServerUserList;
 		const userList = normalizeUserListForClient(rawList);
 
 		return userList;

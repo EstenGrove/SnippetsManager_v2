@@ -4,7 +4,11 @@ import sprite from "../../assets/icons/editor.svg";
 
 type Props = { icon: string };
 
-const icons = {
+interface Icons {
+	[key: string]: string;
+}
+
+const icons: Icons = {
 	listNumbers: "format_list_numbered",
 	listBullets: "format_list_bulleted",
 	blockquote: "format_quote",
