@@ -334,10 +334,6 @@ const refreshAuthSession = async (
 		console.log("error", error);
 		return res.status(400).json({ Status: "FAILED", Message: "Un-authorized" });
 	}
-	// check if user is valid/exists by userID
-	// check if token is valid
-	// generate a fresh token
-	// generate a fresh session
 };
 
 app.use("/", loginUser);

@@ -2,6 +2,7 @@ import express from "express";
 import { NextFunction, Request, Response } from "express";
 import { ResponseModel } from "../../models/shared/ResponseModel";
 import {
+	createSnippet,
 	getListSnippets,
 	getSnippetCounts,
 	insertSnippet,
@@ -68,6 +69,7 @@ const saveNewSnippet = async (
 	res: Response,
 	next: NextFunction
 ) => {
+	const listID = req.query?.listID ?? null;
 	const snippet = req.body;
 
 	// QUERY HANDLING
@@ -87,6 +89,37 @@ const saveNewSnippet = async (
 		results: 0,
 		errorMsg: null,
 		errorStack: null,
+	});
+	res.status(200).json(responseObj);
+};
+
+const createNewSnippet = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const list = req.query?.listID ?? "";
+	const snippet = req.body;
+
+	// Check for 'listID' and 'snippet' before calling fn
+	if (!list) {
+		const failedResp = new ResponseModel({
+			status: "FAILED",
+			msg: "No listID was provided!",
+		});
+		return res.status(400).json(failedResp);
+	}
+	const listID: number = Number(list);
+	const results = await createSnippet(listID, snippet);
+	console.log("results", results);
+
+	const responseObj = new ResponseModel({
+		status: "SUCCESS",
+		msg: "New snippet & associations created (eg. list & user associations).",
+		data: {
+			NewSnippet: results,
+		},
+		results: "3 records were inserted successfully!",
 	});
 	res.status(200).json(responseObj);
 };

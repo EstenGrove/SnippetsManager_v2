@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useMemo } from "react";
 import styles from "../../css/snippets/NewSnippetHeading.module.scss";
 import TextInput from "../shared/TextInput";
 import Button from "../shared/Button";
@@ -10,12 +10,25 @@ type Props = {
 	saveSnippet: () => void;
 };
 
+interface IVals {
+	origin: string;
+	title: string;
+}
+
+const shouldDisableBtn = (vals: IVals) => {
+	const isReady = Object.values(vals).every((val) => !!val && val !== "");
+	return !isReady;
+};
+
 const NewSnippetHeading = ({
 	title,
 	origin,
 	handleTitle,
 	saveSnippet,
 }: Props) => {
+	const disableSave = useMemo(() => {
+		return shouldDisableBtn({ origin, title });
+	}, [title, origin]);
 	return (
 		<div className={styles.NewSnippetHeading}>
 			<div className={styles.NewSnippetHeading_title}>
@@ -39,10 +52,10 @@ const NewSnippetHeading = ({
 				/>
 			</div>
 			<div className={styles.NewSnippetHeading_actions}>
-				<Button handleClick={saveSnippet}>Save Snippet</Button>
+				<Button handleClick={saveSnippet} isDisabled={disableSave}>
+					Save Snippet
+				</Button>
 			</div>
-			{/*  */}
-			{/*  */}
 		</div>
 	);
 };

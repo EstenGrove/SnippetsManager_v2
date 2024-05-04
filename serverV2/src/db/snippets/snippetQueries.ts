@@ -90,4 +90,48 @@ const insertSnippet = async (snippet: IClientSnippetRecord) => {
 	}
 };
 
-export { getListSnippets, getSnippetCounts, insertSnippet };
+/**
+ * This fn calls a PostgreSQL function that performs the follwing:
+ * - Inserts a new 'snippets' record & returns it's snippet_id
+ * - Inserts a new 'user_snippets' record to associate the snippet w/ a user
+ * - Inserts a new 'snippet_lists' record to associate the snippet w/ a list
+ * @param listID {Number} - Numeric list_id to be associated to the snippet
+ * @param newSnippet {IClientSnippetRecord} - Client-formatted snippet record
+ * @returns {Any|Unknown} - Currently only returns the newly created snippetID
+ */
+const createSnippet = async (
+	listID: number,
+	newSnippet: IClientSnippetRecord
+) => {
+	const {
+		snippetName: name,
+		snippetDesc: desc,
+		snippetCode: codeSnippet,
+		snippetOrigin: originInfo,
+		languageID: langID,
+		createdBy,
+		isActive,
+	} = newSnippet;
+	try {
+		const paramRefs = `$1, $2, $3, $4, $5, $6, $7, $8`;
+		const paramVals = [
+			name,
+			desc,
+			codeSnippet,
+			originInfo,
+			createdBy,
+			isActive,
+			langID,
+			listID,
+		];
+		const sqlFn = `SELECT create_snippet(${paramRefs})`;
+		const results = await pool.query(sqlFn, paramVals);
+		console.log("results", results);
+		return results?.rows;
+	} catch (error: unknown) {
+		console.log("error", error);
+		return error;
+	}
+};
+
+export { getListSnippets, getSnippetCounts, insertSnippet, createSnippet };

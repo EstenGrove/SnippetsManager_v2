@@ -12,11 +12,13 @@ import {
 	isFormReady,
 	whichFieldsAreMissing,
 } from "../../utils/utils_validation";
+import { IUserList } from "../../features/lists/types";
 
 type Props = {
 	currentUser: ICurrentUser;
 	currentList: ICurrentList;
 	languages: ILanguage[];
+	userLists: IUserList[];
 };
 
 const NEW_SNIPPET = {
@@ -45,13 +47,19 @@ export interface INewSnippet {
 	origin: string;
 }
 
-const NewSnippetPanel = ({ currentUser, currentList, languages }: Props) => {
+const NewSnippetPanel = ({
+	currentUser,
+	currentList,
+	languages,
+	userLists,
+}: Props) => {
 	const editorRef = useRef<HTMLTextAreaElement>(null);
 	const [snippetValues, setSnippetValues] = useState<INewSnippet>({
 		title: "New Snippet",
 		origin: "",
 	});
 	const [lang, setLang] = useState<string>("tsx");
+	const [listName, setListName] = useState<string>(currentList.list.listName);
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -60,6 +68,10 @@ const NewSnippetPanel = ({ currentUser, currentList, languages }: Props) => {
 			...snippetValues,
 			[name]: value,
 		});
+	};
+
+	const handleList = (list: string) => {
+		setListName(list);
 	};
 
 	const handleLang = (lang: string) => {
@@ -105,8 +117,6 @@ const NewSnippetPanel = ({ currentUser, currentList, languages }: Props) => {
 		// );
 	};
 
-	console.log("snippetValues", snippetValues);
-
 	return (
 		<div className={styles.NewSnippetPanel}>
 			<h1 style={{ color: "white", paddingLeft: "2rem" }}>
@@ -119,7 +129,13 @@ const NewSnippetPanel = ({ currentUser, currentList, languages }: Props) => {
 				saveSnippet={createSnippet}
 			/>
 
-			<EditorPanel editorRef={editorRef} handleLang={handleLang} />
+			<EditorPanel
+				editorRef={editorRef}
+				handleLang={handleLang}
+				currentListName={listName}
+				handleList={handleList}
+				userLists={userLists}
+			/>
 			{/*  */}
 			{/*  */}
 		</div>

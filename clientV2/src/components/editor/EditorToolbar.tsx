@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import { useMemo } from "react";
 import styles from "../../css/editor/EditorToolbar.module.scss";
 import Selector from "../shared/Selector";
+import { IUserList } from "../../features/lists/types";
 
 type Props = {
+	userLists: IUserList[];
+	currentListName: string;
+	handleList: (listName: string) => void;
 	handleLang: (lang: string) => void;
 };
 
@@ -13,15 +17,24 @@ type Props = {
 // - Lists
 // - Divider
 
-const EditorToolbar = ({ handleLang }: Props) => {
+const EditorToolbar = ({
+	userLists,
+	handleList,
+	handleLang,
+	currentListName,
+}: Props) => {
+	const listNames: string[] = useMemo(() => {
+		return userLists.map(({ listName }) => listName);
+	}, [userLists]);
 	return (
 		<div className={styles.EditorToolbar}>
-			{/*  */}
-			{/*  */}
-			<div className={styles.EditorToolbar_tags}>
-				{/*  */}
-				{/*  */}
-				{/*  */}
+			<div className={styles.EditorToolbar_lists}>
+				<Selector
+					initialVal={currentListName}
+					placeholder="Select a list"
+					selectOption={handleList}
+					options={listNames}
+				/>
 			</div>
 			<div className={styles.EditorToolbar_selector}>
 				<Selector

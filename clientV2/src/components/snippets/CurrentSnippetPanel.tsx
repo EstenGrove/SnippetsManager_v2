@@ -3,11 +3,12 @@ import styles from "../../css/snippets/CurrentSnippetPanel.module.scss";
 import { ICurrentUser } from "../../features/currentUser/types";
 import { ISnippet } from "../../features/snippets/types";
 import { ICurrentList } from "../../features/lists/listsSlice";
+import { ISelectedSnippet } from "../../features/snippets/snippetsSlice";
 
 type Props = {
 	currentList: ICurrentList;
 	currentUser: ICurrentUser;
-	snippet: ISnippet;
+	snippet: ISelectedSnippet;
 };
 
 const CurrentSnippetPanel = ({ currentList, currentUser, snippet }: Props) => {

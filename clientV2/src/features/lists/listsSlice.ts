@@ -8,7 +8,7 @@ import { createNewUserList, fetchUserLists } from "./operations";
 import { updateAt } from "../../utils/utils_misc";
 
 export interface ICurrentList {
-	list: IUserList | object;
+	list: IUserList;
 	snippets: ISnippet[] | [];
 }
 
@@ -22,7 +22,7 @@ const initialState: IListSlice = {
 	status: "IDLE",
 	userLists: [],
 	currentList: {
-		list: {},
+		list: {} as IUserList,
 		snippets: [],
 	},
 };

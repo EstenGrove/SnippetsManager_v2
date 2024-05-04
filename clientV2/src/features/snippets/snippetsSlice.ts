@@ -6,6 +6,11 @@ import { RootState } from "../../store/store";
 import { TStatus } from "../types";
 import { fetchListSnippets } from "./operations";
 
+export interface ISelectedSnippet {
+	snippet: ISnippet;
+	tags: ITag[];
+}
+
 export interface ISnippetsSlice {
 	status: TStatus;
 	userSnippets: ISnippet[];

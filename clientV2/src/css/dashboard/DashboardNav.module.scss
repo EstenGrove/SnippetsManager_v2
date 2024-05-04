@@ -5,6 +5,8 @@
 .DashboardNav {
 	width: auto;
 	margin-bottom: 2rem;
+	position: relative;
+	z-index: 10;
 
 	&_btn {
 		width: 3rem;

@@ -21,6 +21,10 @@ import DashboardNav from "./DashboardNav";
 import CurrentSnippetPanel from "../snippets/CurrentSnippetPanel";
 import NewSnippet from "../snippets/NewSnippet";
 import { ICurrentUser } from "../../features/currentUser/types";
+import {
+	ISelectedSnippet,
+	selectCurrentSnippet,
+} from "../../features/snippets/snippetsSlice";
 
 // CONSIDER MULTIPLE VIEW TYPES:
 // - List View: <ListsPanel/>
@@ -33,6 +37,7 @@ const DashboardLists = () => {
 	const userTags = useSelector(selectTags);
 	const snippetCounts = useSelector(selectSnippetCounts);
 	const currentList = useSelector(selectCurrentList);
+	const currentSnippet = useSelector(selectCurrentSnippet);
 	// favorites
 	const userFaves = useSelector(selectFaves);
 	const { lists } = userFaves;
@@ -75,6 +80,7 @@ const DashboardLists = () => {
 						// path="/lists/:id/:snippetID"
 						element={
 							<CurrentSnippetPanel
+								snippet={currentSnippet as ISelectedSnippet}
 								currentList={currentList as ICurrentList}
 								currentUser={currentUser as ICurrentUser}
 							/>

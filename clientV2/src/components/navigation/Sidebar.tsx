@@ -148,8 +148,6 @@ const Sidebar = ({ currentUser }: Props) => {
 		toggleTheme();
 	};
 
-	console.log("currentUser", currentUser);
-
 	if (winWidth <= 800) {
 		return <MobileSidebar />;
 	}

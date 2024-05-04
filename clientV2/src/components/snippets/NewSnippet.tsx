@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styles from "../../css/snippets/NewSnippet.module.scss";
 import { ICurrentUser } from "../../features/currentUser/types";
-import { ICurrentList } from "../../features/lists/listsSlice";
+import { ICurrentList, selectUserLists } from "../../features/lists/listsSlice";
 import { useSelector } from "react-redux";
 import { selectLangs } from "../../features/languages/langsSlice";
 import { useAppDispatch } from "../../store/store";
@@ -16,6 +16,7 @@ type Props = {
 
 const NewSnippet = ({ currentUser, currentList }: Props) => {
 	const dispatch = useAppDispatch();
+	const userLists = useSelector(selectUserLists);
 	const languages = useSelector(selectLangs);
 
 	// if user is loaded, insure the 'languages' are available
@@ -39,9 +40,8 @@ const NewSnippet = ({ currentUser, currentList }: Props) => {
 				currentList={currentList}
 				currentUser={currentUser}
 				languages={languages}
+				userLists={userLists}
 			/>
-			{/*  */}
-			{/*  */}
 		</div>
 	);
 };

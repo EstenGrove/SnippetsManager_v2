@@ -164,12 +164,7 @@ const ListsPanel = ({
 			updatedBy: null,
 			isActive: true,
 		};
-		// const wasSaved = await saveNewUserList(
-		// 	token as string,
-		// 	userID as string,
-		// 	newListItem as IList
-		// );
-		// console.log("wasSaved", wasSaved);
+
 		dispatch(
 			createNewUserList({
 				token: token as string,
@@ -179,8 +174,6 @@ const ListsPanel = ({
 		);
 		closeNewListDialog();
 	};
-
-	console.log("searchVal", searchVal);
 
 	if (winWidth <= 800) {
 		return <MobileListsPanel userLists={visibleLists} userTags={userTags} />;

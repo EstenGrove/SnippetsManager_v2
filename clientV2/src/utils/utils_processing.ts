@@ -14,7 +14,7 @@ const addEllipsis = (str: string | null, maxLength: number = 60): string => {
 
 type TMappedList = Record<string, string>;
 
-const groupBy = (key: string, list: Record<string, any>[]) => {
+const groupBy = (key: string, list: Record<string, any>[]): TMappedList => {
 	return list.reduce((acc, item) => {
 		const mapKey = item[key];
 		if (!acc[mapKey]) {
